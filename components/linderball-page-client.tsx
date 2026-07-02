@@ -18,6 +18,7 @@ import {
 import { CartProvider } from "@/components/cart/cart-context"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 /* ---------- Hero ---------- */
 function Hero() {
@@ -111,6 +112,7 @@ function Intro() {
   return (
     <section ref={ref} className="py-20 md:py-28 lg:py-40">
       <div className="mx-auto max-w-[1000px] px-6">
+        <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Linderball", href: "/linderball" }]} />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

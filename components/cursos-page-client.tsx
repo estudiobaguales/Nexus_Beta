@@ -4,12 +4,14 @@ import { motion } from "motion/react"
 import { CartProvider } from "@/components/cart/cart-context"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { CoursesSection } from "@/components/sections/courses-section"
 
 function PageHero() {
   return (
     <section className="py-20 lg:py-28 bg-secondary/30">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
+        <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Cursos", href: "/cursos" }]} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

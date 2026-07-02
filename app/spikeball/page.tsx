@@ -1,4 +1,5 @@
 import { SpikeballPageClient } from "@/components/spikeball-page-client"
+import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
 
 export const metadata = {
   title: "Spikeball (Roundnet): que es, reglas y como se juega | Nexus",
@@ -25,5 +26,30 @@ export const metadata = {
 }
 
 export default function SpikeballPage() {
-  return <SpikeballPageClient />
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Spikeball (Roundnet): que es, reglas y como se juega",
+    about: "Spikeball / Roundnet",
+    image: [absoluteUrl("/images/spikeball-hero.png")],
+    author: { "@type": "Organization", name: SITE_NAME },
+    publisher: { "@type": "Organization", name: SITE_NAME },
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Spikeball", item: absoluteUrl("/spikeball") },
+    ],
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <SpikeballPageClient />
+    </>
+  )
 }

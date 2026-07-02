@@ -1,4 +1,5 @@
 import { LinderballPageClient } from "@/components/linderball-page-client"
+import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
 
 export const metadata = {
   title: "Linderball: que es, mecanicas y como se juega | Nexus",
@@ -24,5 +25,30 @@ export const metadata = {
 }
 
 export default function LinderballPage() {
-  return <LinderballPageClient />
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Linderball: que es, mecanicas y como se juega",
+    about: "Linderball",
+    image: [absoluteUrl("/images/linderball-hero.png")],
+    author: { "@type": "Organization", name: SITE_NAME },
+    publisher: { "@type": "Organization", name: SITE_NAME },
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Linderball", item: absoluteUrl("/linderball") },
+    ],
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <LinderballPageClient />
+    </>
+  )
 }

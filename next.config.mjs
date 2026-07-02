@@ -4,7 +4,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    // TODO: evaluar cambiar a false + probar en el host de deploy real antes de produccion.
     unoptimized: true,
+    remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com" }],
   },
   env: {
     // Expose the connected Shopify store domain to the client (cart runs client-side).

@@ -1,4 +1,5 @@
 import { NosotrosPageClient } from "@/components/nosotros-page-client"
+import { absoluteUrl } from "@/lib/site-config"
 
 export const metadata = {
   title: "Nosotros | Nexus",
@@ -15,5 +16,19 @@ export const metadata = {
 }
 
 export default function NosotrosPage() {
-  return <NosotrosPageClient />
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Nosotros", item: absoluteUrl("/nosotros") },
+    ],
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <NosotrosPageClient />
+    </>
+  )
 }

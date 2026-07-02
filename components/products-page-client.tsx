@@ -10,6 +10,7 @@ import { useCart } from "@/components/cart/cart-context"
 import { CartProvider } from "@/components/cart/cart-context"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 const fallbackProducts: Product[] = [
   {
@@ -175,6 +176,7 @@ function ProductsContent({ products }: { products: Product[] }) {
         {/* Hero banner */}
         <section className="relative py-20 lg:py-28 bg-secondary/30">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
+            <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Tienda", href: "/productos" }]} />
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

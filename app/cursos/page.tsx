@@ -1,4 +1,5 @@
 import { CursosPageClient } from "@/components/cursos-page-client"
+import { absoluteUrl } from "@/lib/site-config"
 
 export const metadata = {
   title: "Cursos y Academia | Nexus",
@@ -15,5 +16,19 @@ export const metadata = {
 }
 
 export default function CursosPage() {
-  return <CursosPageClient />
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Cursos", item: absoluteUrl("/cursos") },
+    ],
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <CursosPageClient />
+    </>
+  )
 }
