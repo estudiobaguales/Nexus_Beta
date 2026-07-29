@@ -381,7 +381,7 @@ function CTA() {
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
             <Link
-              href="/cursos"
+              href="/nexuniversity"
               className="inline-flex items-center h-12 px-8 rounded-full border border-accent-foreground/30 text-accent-foreground text-[13px] font-medium hover:bg-accent-foreground/10 transition-all duration-300"
             >
               Tomar un curso

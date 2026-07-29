@@ -8,19 +8,17 @@ import { ArrowUpRight } from "lucide-react"
 const footerLinks = {
   Deportes: [
     { label: "Spikeball", href: "/spikeball" },
-    { label: "Linderball", href: "/linderball" },
     { label: "Tienda", href: "/productos" },
     { label: "Blog", href: "/blog" },
   ],
   Comunidad: [
-    { label: "Torneos", href: "/eventos" },
-    { label: "Cursos", href: "/cursos" },
+    { label: "Nexuniversity", href: "/nexuniversity" },
     { label: "Blog", href: "/blog" },
     { label: "Rankings", href: "#" },
   ],
   Empresa: [
-    { label: "Nosotros", href: "/nosotros" },
-    { label: "Contacto", href: "#" },
+    { label: "Corporativo", href: "/corporativo" },
+    { label: "Contacto", href: "/contacto" },
     { label: "Prensa", href: "#" },
     { label: "Trabaja con nosotros", href: "#" },
   ],

@@ -3,36 +3,34 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
-import { ShoppingBag, Search, Menu, X, ArrowRight, ChevronDown } from "lucide-react"
+import { ShoppingBag, Search, Menu, X, ArrowRight } from "lucide-react"
 import { useCart } from "@/components/cart/cart-context"
 import { CartDrawer } from "@/components/cart/cart-drawer"
 
 type NavLink = {
   href: string
   label: string
-  children?: { href: string; label: string; description: string }[]
 }
 
 const navLinks: NavLink[] = [
-  {
-    href: "/spikeball",
-    label: "Deportes",
-    children: [
-      { href: "/spikeball", label: "Spikeball", description: "El fenomeno del roundnet 2v2" },
-      { href: "/linderball", label: "Linderball", description: "El nuevo deporte de lanzamientos" },
-    ],
-  },
+  { href: "/", label: "Inicio" },
   { href: "/productos", label: "Tienda" },
-  { href: "/cursos", label: "Cursos" },
-  { href: "/eventos", label: "Eventos" },
+  { href: "/nexuniversity", label: "Nexuniversity" },
+  { href: "/corporativo", label: "Corporativo" },
   { href: "/blog", label: "Blog" },
-  { href: "/nosotros", label: "Nosotros" },
 ]
+
+const highlightLinks: NavLink[] = [
+  { href: "/contacto", label: "Contacto" },
+  { href: "/spikeball", label: "SpikeBall" },
+]
+
+const highlightPillClass =
+  "inline-flex items-center h-8 px-4 rounded-full bg-accent text-accent-foreground text-[12px] font-semibold hover:brightness-105 hover:scale-[1.03] transition-all duration-300"
 
 export function Navbar({ overHero = false }: { overHero?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
   const { totalQuantity, openCart } = useCart()
 
   useEffect(() => {
@@ -71,62 +69,17 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
 
             {/* Desktop Nav -- centered */}
             <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-              {navLinks.map((link) =>
-                link.children ? (
-                  <div
-                    key={link.label}
-                    className="relative"
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                  >
-                    <button
-                      className={`flex items-center gap-1 px-4 py-2 text-[13px] rounded-lg transition-colors duration-300 hover:bg-foreground/[0.03] ${
-                        lightOnDark ? "text-background/80 hover:text-background" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {link.label}
-                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`} strokeWidth={1.5} />
-                    </button>
-                    <AnimatePresence>
-                      {dropdownOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[300px]"
-                        >
-                          <div className="bg-background border border-border rounded-2xl shadow-xl shadow-foreground/[0.06] p-2">
-                            {link.children.map((child) => (
-                              <Link
-                                key={child.href}
-                                href={child.href}
-                                className="group flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-secondary transition-colors duration-200"
-                              >
-                                <div>
-                                  <p className="text-[13px] font-semibold text-foreground group-hover:text-accent transition-colors">{child.label}</p>
-                                  <p className="text-[11px] text-muted-foreground mt-0.5">{child.description}</p>
-                                </div>
-                                <ArrowRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-300 shrink-0" strokeWidth={1.5} />
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`relative px-4 py-2 text-[13px] rounded-lg transition-colors duration-300 hover:bg-foreground/[0.03] ${
-                      lightOnDark ? "text-background/80 hover:text-background" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-[13px] rounded-lg transition-colors duration-300 hover:bg-foreground/[0.03] ${
+                    lightOnDark ? "text-background/80 hover:text-background" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
 
             {/* Right Actions */}
@@ -161,12 +114,13 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
 
               <div className={`hidden md:block w-px h-5 mx-2 ${lightOnDark ? "bg-background/20" : "bg-border"}`} />
 
-              <Link
-                href="/productos"
-                className="hidden md:inline-flex items-center h-8 px-4 rounded-full bg-accent text-accent-foreground text-[12px] font-semibold hover:brightness-105 hover:scale-[1.03] transition-all duration-300"
-              >
-                Comprar
-              </Link>
+              <div className="hidden md:flex items-center gap-1.5">
+                {highlightLinks.map((link) => (
+                  <Link key={link.href} href={link.href} className={highlightPillClass}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -204,54 +158,34 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {link.children ? (
-                      <div className="py-4 border-b border-border/50">
-                        <span className="text-[1.75rem] font-semibold tracking-[-0.03em] text-foreground">
-                          {link.label}
-                        </span>
-                        <div className="flex flex-col gap-1 mt-3 pl-1">
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              onClick={() => setMenuOpen(false)}
-                              className="group flex items-center justify-between py-2"
-                            >
-                              <span className="text-[1.05rem] font-medium text-muted-foreground group-hover:text-accent transition-colors">
-                                {child.label}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" strokeWidth={1.5} />
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="group flex items-center justify-between py-4 border-b border-border/50"
-                      >
-                        <span className="text-[1.75rem] font-semibold tracking-[-0.03em] text-foreground">
-                          {link.label}
-                        </span>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300" strokeWidth={1.5} />
-                      </Link>
-                    )}
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="group flex items-center justify-between py-4 border-b border-border/50"
+                    >
+                      <span className="text-[1.75rem] font-semibold tracking-[-0.03em] text-foreground">
+                        {link.label}
+                      </span>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300" strokeWidth={1.5} />
+                    </Link>
                   </motion.div>
                 ))}
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-8"
+                  className="mt-8 flex flex-col gap-3"
                 >
-                  <Link
-                    href="/productos"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-center w-full h-14 rounded-2xl bg-accent text-accent-foreground text-[15px] font-semibold hover:brightness-105 transition-all"
-                  >
-                    Comprar ahora
-                  </Link>
+                  {highlightLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-center w-full h-14 rounded-2xl bg-accent text-accent-foreground text-[15px] font-semibold hover:brightness-105 transition-all"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </motion.div>
               </nav>
             </motion.div>

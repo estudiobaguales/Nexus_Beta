@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site-config"
 import { getAllBlogSlugs } from "@/lib/blog-data"
 import { getProducts } from "@/lib/shopify"
 
-const staticRoutes = ["", "/spikeball", "/linderball", "/cursos", "/eventos", "/nosotros", "/blog", "/productos"]
+const staticRoutes = ["", "/spikeball", "/nexuniversity", "/corporativo", "/contacto", "/blog", "/productos"]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
