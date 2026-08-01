@@ -6,7 +6,7 @@ export default async function Home() {
   let products: Product[] = []
 
   try {
-    products = await getProducts({ first: 50 })
+    ;({ products } = await getProducts({ first: 50 }))
   } catch (error) {
     console.error("Error fetching products:", error)
     products = []

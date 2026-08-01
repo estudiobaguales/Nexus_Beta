@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ArrowRight, ShoppingBag, ArrowUpRight } from "lucide-react"
 import type { Product } from "@/lib/shopify/types"
 import { useCart } from "@/components/cart/cart-context"
+import { getFirstAvailableVariant } from "@/lib/shopify/utils"
 
 const fallbackProducts = [
   {
@@ -36,6 +37,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
   const { addItem } = useCart()
   const image = product.images.edges[0]?.node
   const price = parseFloat(product.priceRange.minVariantPrice.amount)
+  const availableVariant = getFirstAvailableVariant(product)
 
   return (
     <motion.div
@@ -54,11 +56,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <motion.div initial={false} animate={{ opacity: hovered ? 1 : 0 }} transition={{ duration: 0.25 }} className="absolute inset-0 bg-gradient-to-t from-foreground/55 to-transparent" />
         <motion.div initial={false} animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }} transition={{ duration: 0.25 }} className="absolute inset-x-0 bottom-0 p-5 flex gap-2.5">
           <button
-            onClick={(e) => { e.stopPropagation(); if (product.variants.length > 0) addItem(product.variants[0], product) }}
-            className="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl bg-background text-foreground text-[12px] font-semibold hover:bg-background/90 active:scale-[0.97] transition-all duration-200"
+            onClick={(e) => { e.stopPropagation(); if (availableVariant) addItem(availableVariant, product) }}
+            disabled={!availableVariant}
+            className="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl bg-background text-foreground text-[12px] font-semibold hover:bg-background/90 active:scale-[0.97] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ShoppingBag className="w-3.5 h-3.5" strokeWidth={2} />
-            Agregar al carrito
+            {availableVariant ? "Agregar al carrito" : "Agotado"}
           </button>
           <Link href={`/productos/${product.handle}`} className="flex items-center justify-center w-11 h-11 rounded-xl bg-background/20 backdrop-blur-sm border border-background/25 text-background hover:bg-background/30 transition-colors">
             <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />

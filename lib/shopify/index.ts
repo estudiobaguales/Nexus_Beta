@@ -26,9 +26,13 @@ const SHOPIFY_STOREFRONT_API_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/2025-07/
 async function shopifyFetch<T>({
   query,
   variables = {},
+  cache,
 }: {
   query: string
   variables?: Record<string, any>
+  // Cart mutations pass 'no-store' explicitly (always dynamic). Catalog reads
+  // omit this so the calling route's `revalidate` config controls ISR caching.
+  cache?: RequestCache
 }): Promise<{ data: T; errors?: any[] }> {
   try {
     const response = await fetch(SHOPIFY_STOREFRONT_API_URL, {
@@ -43,7 +47,7 @@ async function shopifyFetch<T>({
         query,
         variables,
       }),
-      cache: 'no-store', // Ensure fresh data for cart operations
+      ...(cache ? { cache } : {}),
     })
 
     if (!response.ok) {
@@ -67,21 +71,41 @@ async function shopifyFetch<T>({
   }
 }
 
+// Flattens the raw `variants { edges { node } }` shape Shopify returns into
+// the flat ProductVariant[] the Product type declares (and every consumer expects).
+function mapProductNode(node: any): ShopifyProduct {
+  return {
+    ...node,
+    variants: (node.variants?.edges ?? []).map((edge: { node: any }) => edge.node),
+  }
+}
+
+export type ProductsPage = {
+  products: ShopifyProduct[]
+  pageInfo: { hasNextPage: boolean; endCursor: string | null }
+}
+
 // Get all products
 export async function getProducts({
   first = DEFAULT_PAGE_SIZE,
+  after,
   sortKey = DEFAULT_SORT_KEY,
   reverse = false,
   query: searchQuery,
 }: {
   first?: number
+  after?: string
   sortKey?: ProductSortKey
   reverse?: boolean
   query?: string
-}): Promise<ShopifyProduct[]> {
+}): Promise<ProductsPage> {
   const query = /* gql */ `
-    query getProducts($first: Int!, $sortKey: ProductSortKeys!, $reverse: Boolean) {
-      products(first: $first, sortKey: $sortKey, reverse: $reverse) {
+    query getProducts($first: Int!, $after: String, $sortKey: ProductSortKeys!, $reverse: Boolean, $query: String) {
+      products(first: $first, after: $after, sortKey: $sortKey, reverse: $reverse, query: $query) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         edges {
           node {
             id
@@ -142,14 +166,18 @@ export async function getProducts({
 
   const { data } = await shopifyFetch<{
     products: {
-      edges: Array<{ node: ShopifyProduct }>
+      pageInfo: { hasNextPage: boolean; endCursor: string | null }
+      edges: Array<{ node: any }>
     }
   }>({
     query,
-    variables: { first, sortKey, reverse, query: searchQuery },
+    variables: { first, after, sortKey, reverse, query: searchQuery },
   })
 
-  return data.products.edges.map((edge) => edge.node)
+  return {
+    products: data.products.edges.map((edge) => mapProductNode(edge.node)),
+    pageInfo: data.products.pageInfo,
+  }
 }
 
 // Get single product by handle
@@ -217,13 +245,13 @@ export async function getProduct(
   `
 
   const { data } = await shopifyFetch<{
-    product: ShopifyProduct | null
+    product: any | null
   }>({
     query,
     variables: { handle },
   })
 
-  return data.product
+  return data.product ? mapProductNode(data.product) : null
 }
 
 // Get collections
@@ -258,6 +286,34 @@ export async function getCollections(first = 10): Promise<ShopifyCollection[]> {
   })
 
   return data.collections.edges.map((edge) => edge.node)
+}
+
+// Get a single collection by handle (without its products)
+export async function getCollection(handle: string): Promise<ShopifyCollection | null> {
+  const query = /* gql */ `
+    query getCollection($handle: String!) {
+      collection(handle: $handle) {
+        id
+        title
+        handle
+        description
+        image {
+          url
+          altText
+          thumbhash
+        }
+      }
+    }
+  `
+
+  const { data } = await shopifyFetch<{
+    collection: ShopifyCollection | null
+  }>({
+    query,
+    variables: { handle },
+  })
+
+  return data.collection
 }
 
 // Get products from a specific collection (simplified - no server-side filtering)
@@ -343,7 +399,7 @@ export async function getCollectionProducts({
   const { data } = await shopifyFetch<{
     collection: {
       products: {
-        edges: Array<{ node: ShopifyProduct }>
+        edges: Array<{ node: any }>
       }
     } | null
   }>({
@@ -361,7 +417,7 @@ export async function getCollectionProducts({
     return []
   }
 
-  return data.collection.products.edges.map((edge) => edge.node)
+  return data.collection.products.edges.map((edge) => mapProductNode(edge.node))
 }
 
 // Create cart
@@ -422,7 +478,7 @@ export async function createCart(): Promise<ShopifyCart> {
       cart: ShopifyCart
       userErrors: Array<{ field: string; message: string }>
     }
-  }>({ query })
+  }>({ query, cache: 'no-store' })
 
   if (data.cartCreate.userErrors.length > 0) {
     throw new Error(data.cartCreate.userErrors[0].message)
@@ -498,6 +554,7 @@ export async function addCartLines(
       cartId,
       lines,
     },
+    cache: 'no-store',
   })
 
   if (data.cartLinesAdd.userErrors.length > 0) {
@@ -574,6 +631,7 @@ export async function updateCartLines(
       cartId,
       lines,
     },
+    cache: 'no-store',
   })
 
   if (data.cartLinesUpdate.userErrors.length > 0) {
@@ -650,6 +708,7 @@ export async function removeCartLines(
       cartId,
       lineIds,
     },
+    cache: 'no-store',
   })
 
   if (data.cartLinesRemove.userErrors.length > 0) {
@@ -724,6 +783,7 @@ export async function getCart(cartId: string): Promise<ShopifyCart | null> {
   }>({
     query,
     variables: { cartId },
+    cache: 'no-store',
   })
 
   return data.cart

@@ -20,11 +20,13 @@ export const metadata = {
   },
 }
 
+export const revalidate = 60
+
 export default async function ProductosPage() {
   let products: Product[] = []
 
   try {
-    products = await getProducts({ first: 50 })
+    ;({ products } = await getProducts({ first: 50 }))
   } catch {
     products = []
   }

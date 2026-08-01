@@ -1,8 +1,9 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import type { Product, ProductVariant, ShopifyCart, ShopifyCartLine } from "@/lib/shopify/types"
 import { createCart, addCartLines, updateCartLines, removeCartLines, getCart } from "@/lib/shopify"
+import { getCartIdCookie, setCartIdCookie, clearCartIdCookie } from "@/lib/cart-cookie"
 
 type CartContextType = {
   cart: ShopifyCart | null
@@ -26,10 +27,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const openCart = useCallback(() => setIsOpen(true), [])
   const closeCart = useCallback(() => setIsOpen(false), [])
 
+  useEffect(() => {
+    const existingCartId = getCartIdCookie()
+    if (!existingCartId) return
+    getCart(existingCartId)
+      .then((existingCart) => {
+        if (existingCart) {
+          setCart(existingCart)
+        } else {
+          // Cart expired or was completed at checkout.
+          clearCartIdCookie()
+        }
+      })
+      .catch((error) => console.error("Error hydrating cart:", error))
+  }, [])
+
   const ensureCart = useCallback(async () => {
     if (cart) return cart
     const newCart = await createCart()
     setCart(newCart)
+    setCartIdCookie(newCart.id)
     return newCart
   }, [cart])
 

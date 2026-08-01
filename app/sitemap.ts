@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { SITE_URL } from "@/lib/site-config"
 import { getAllBlogSlugs } from "@/lib/blog-data"
-import { getProducts } from "@/lib/shopify"
+import { getProducts, getCollections } from "@/lib/shopify"
 
 const staticRoutes = ["", "/spikeball", "/nexuniversity", "/corporativo", "/contacto", "/blog", "/productos"]
 
@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let productEntries: MetadataRoute.Sitemap = []
   try {
-    const products = await getProducts({ first: 100 })
+    const { products } = await getProducts({ first: 100 })
     productEntries = products.map((p) => ({
       url: `${SITE_URL}/productos/${p.handle}`,
       lastModified: now,
@@ -35,5 +35,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     productEntries = []
   }
 
-  return [...staticEntries, ...blogEntries, ...productEntries]
+  let collectionEntries: MetadataRoute.Sitemap = []
+  try {
+    const collections = await getCollections()
+    collectionEntries = collections.map((c) => ({
+      url: `${SITE_URL}/productos/categoria/${c.handle}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    }))
+  } catch {
+    collectionEntries = []
+  }
+
+  return [...staticEntries, ...blogEntries, ...productEntries, ...collectionEntries]
 }

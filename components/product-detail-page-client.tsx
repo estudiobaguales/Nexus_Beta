@@ -9,6 +9,7 @@ import { CartProvider } from "@/components/cart/cart-context"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { getFirstAvailableVariant } from "@/lib/shopify/utils"
 
 function ProductDetailContent({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0)
@@ -16,6 +17,7 @@ function ProductDetailContent({ product }: { product: Product }) {
   const images = product.images.edges.map((edge) => edge.node)
   const price = parseFloat(product.priceRange.minVariantPrice.amount)
   const currentImage = images[activeImage]
+  const availableVariant = getFirstAvailableVariant(product)
 
   return (
     <>
@@ -79,13 +81,13 @@ function ProductDetailContent({ product }: { product: Product }) {
 
                 <button
                   onClick={() => {
-                    if (product.variants.length > 0) addItem(product.variants[0], product)
+                    if (availableVariant) addItem(availableVariant, product)
                   }}
-                  disabled={!product.availableForSale}
+                  disabled={!availableVariant}
                   className="mt-8 flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-foreground text-background text-[14px] font-semibold hover:opacity-90 active:scale-[0.97] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed w-full sm:w-auto"
                 >
                   <ShoppingBag className="w-4 h-4" strokeWidth={2} />
-                  {product.availableForSale ? "Agregar al carrito" : "Agotado"}
+                  {availableVariant ? "Agregar al carrito" : "Agotado"}
                 </button>
               </div>
             </div>
