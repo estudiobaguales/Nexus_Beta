@@ -14,9 +14,7 @@ import {
   Trophy,
   CircleDot,
 } from "lucide-react"
-import { CartProvider } from "@/components/cart/cart-context"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
+import { SiteShell } from "@/components/site-shell"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 
 /* ---------- Hero ---------- */
@@ -30,7 +28,7 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[600px] overflow-hidden bg-foreground">
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <Image src="/images/spikeball-hero.png" alt="Jugadores de spikeball en accion" fill priority className="object-cover" />
+        <Image src="/images/spikeball-hero.png" alt="Jugadores de spikeball en accion" fill sizes="100vw" priority className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/40 to-foreground/60" />
       </motion.div>
 
@@ -40,23 +38,31 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-[11px] tracking-[0.4em] uppercase text-accent mb-5 font-medium"
+            className="text-eyebrow tracking-[0.4em] uppercase text-accent mb-5 font-medium"
           >
             El deporte que crece mas rapido del mundo
           </motion.p>
+          {/* El H1 era la palabra suelta "Spikeball" mientras el <title> apunta a
+              "Spikeball (Roundnet): que es, reglas y como se juega". La segunda linea
+              alinea el heading con la intencion de busqueda sin perder el wordmark. */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[clamp(3.5rem,12vw,9rem)] font-bold tracking-[-0.05em] text-background leading-[0.9]"
+            className="text-background"
           >
-            Spikeball
+            <span className="block text-[clamp(3.5rem,12vw,9rem)] font-bold tracking-[-0.05em] leading-[0.9]">
+              Spikeball
+            </span>
+            <span className="block mt-4 text-[clamp(1.05rem,2.4vw,1.6rem)] font-medium tracking-[-0.02em] text-background/70 leading-tight">
+              Roundnet: que es, reglas y como se juega
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-6 text-[16px] md:text-[18px] text-background/60 max-w-xl leading-relaxed"
+            className="mt-6 text-body-lg md:text-[18px] text-background/60 max-w-xl leading-relaxed"
           >
             Tambien conocido como <span className="text-background font-medium">roundnet</span>. Dos contra dos,
             una red circular y 360 grados de pura adrenalina. Sin limites de cancha.
@@ -69,14 +75,14 @@ function Hero() {
           >
             <a
               href="#como-jugar"
-              className="group inline-flex items-center gap-2 h-12 px-8 rounded-full bg-accent text-accent-foreground text-[13px] font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300"
+              className="group inline-flex items-center gap-2 h-12 px-8 rounded-full bg-accent text-accent-foreground text-ui font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300"
             >
               Como se juega
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" strokeWidth={2} />
             </a>
             <Link
               href="/productos"
-              className="inline-flex items-center gap-2 h-12 px-8 rounded-full border border-background/25 text-background text-[13px] font-medium hover:bg-background hover:text-foreground transition-all duration-300"
+              className="inline-flex items-center gap-2 h-12 px-8 rounded-full border border-background/25 text-background text-ui font-medium hover:bg-background hover:text-foreground transition-all duration-300"
             >
               Ver equipamiento
             </Link>
@@ -95,7 +101,7 @@ function Hero() {
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase text-background/40">Scroll</span>
+          <span className="text-micro tracking-[0.2em] uppercase text-background/40">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-background/40 to-transparent" />
         </motion.div>
       </motion.div>
@@ -116,7 +122,7 @@ function Intro() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-[11px] tracking-[0.3em] uppercase text-accent mb-6 font-medium"
+          className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-6 font-medium"
         >
           Que es el roundnet
         </motion.p>
@@ -133,7 +139,7 @@ function Intro() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="mt-8 text-[16px] md:text-[17px] text-muted-foreground leading-[1.8] max-w-2xl"
+          className="mt-8 text-body-lg md:text-[17px] text-muted-foreground leading-[1.8] max-w-2xl"
         >
           El roundnet se juega 2 contra 2. El objetivo es golpear la pelota contra la red de modo que el equipo
           rival no pueda devolverla. Cada equipo tiene hasta tres toques para preparar y ejecutar el remate, y como
@@ -164,7 +170,7 @@ function History() {
           transition={{ duration: 0.8 }}
           className="mb-16 max-w-xl"
         >
-          <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">La historia</p>
+          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">La historia</p>
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]">
             De un patio trasero al mundo.
           </h2>
@@ -183,7 +189,7 @@ function History() {
                 {item.year}
               </span>
               <h3 className="mt-5 text-[17px] font-semibold text-foreground">{item.title}</h3>
-              <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{item.text}</p>
+              <p className="mt-2 text-body-sm text-muted-foreground leading-relaxed">{item.text}</p>
             </motion.div>
           ))}
         </div>
@@ -213,7 +219,7 @@ function HowToPlay() {
           transition={{ duration: 0.8 }}
           className="mb-16 max-w-xl"
         >
-          <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">Como se juega</p>
+          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Como se juega</p>
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]">
             Las reglas, en simple.
           </h2>
@@ -232,8 +238,8 @@ function HowToPlay() {
                 <rule.icon className="w-5 h-5" strokeWidth={1.75} />
               </div>
               <div>
-                <h3 className="text-[16px] font-semibold text-foreground">{rule.title}</h3>
-                <p className="mt-1.5 text-[14px] text-muted-foreground leading-relaxed">{rule.text}</p>
+                <h3 className="text-body-lg font-semibold text-foreground">{rule.title}</h3>
+                <p className="mt-1.5 text-body-sm text-muted-foreground leading-relaxed">{rule.text}</p>
               </div>
             </motion.div>
           ))}
@@ -263,7 +269,7 @@ function Scoring() {
           transition={{ duration: 0.8 }}
           className="mb-16 max-w-xl"
         >
-          <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">Puntuacion</p>
+          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Puntuacion</p>
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.035em] text-background leading-[1.05]">
             Como se gana.
           </h2>
@@ -281,8 +287,8 @@ function Scoring() {
               <span className="text-[2.5rem] md:text-[3rem] font-bold tracking-[-0.04em] text-accent leading-none">
                 {s.value}
               </span>
-              <p className="mt-4 text-[15px] font-semibold text-background">{s.label}</p>
-              <p className="mt-1.5 text-[13px] text-background/45 leading-relaxed">{s.detail}</p>
+              <p className="mt-4 text-body font-semibold text-background">{s.label}</p>
+              <p className="mt-1.5 text-ui text-background/45 leading-relaxed">{s.detail}</p>
             </motion.div>
           ))}
         </div>
@@ -304,7 +310,7 @@ function Equipment() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <motion.div style={{ y: imgY }}>
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-secondary">
-              <Image src="/images/spikeball-net.png" alt="Set de spikeball con red circular" fill className="object-cover" />
+              <Image src="/images/spikeball-net.png" alt="Set de spikeball con red circular" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
             </div>
           </motion.div>
 
@@ -314,11 +320,11 @@ function Equipment() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">El equipamiento</p>
+              <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">El equipamiento</p>
               <h2 className="text-[clamp(2rem,4.5vw,3.2rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]">
                 Solo necesitas un set.
               </h2>
-              <p className="mt-6 text-[15px] text-muted-foreground leading-[1.8] max-w-md">
+              <p className="mt-6 text-body text-muted-foreground leading-[1.8] max-w-md">
                 Una red circular tensada, una pelota de alta visibilidad y ganas de moverte. El set es portable,
                 se arma en segundos y puedes jugar en la playa, el parque o donde quieras.
               </p>
@@ -329,7 +335,7 @@ function Equipment() {
                     initial={{ opacity: 0, x: -16 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
-                    className="flex items-center gap-3 text-[14px] text-foreground"
+                    className="flex items-center gap-3 text-body-sm text-foreground"
                   >
                     <CircleDot className="w-4 h-4 text-accent shrink-0" strokeWidth={1.75} />
                     {f}
@@ -338,7 +344,7 @@ function Equipment() {
               </div>
               <Link
                 href="/productos"
-                className="group inline-flex items-center gap-2 mt-9 h-12 px-8 rounded-full bg-foreground text-background text-[13px] font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-200"
+                className="group inline-flex items-center gap-2 mt-9 h-12 px-8 rounded-full bg-foreground text-background text-ui font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-200"
               >
                 Ver sets en la tienda
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
@@ -369,20 +375,20 @@ function CTA() {
           <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-[-0.035em] text-accent-foreground leading-[1.1] text-balance max-w-2xl mx-auto">
             Listo para tu primer punto?
           </h2>
-          <p className="mt-4 text-[15px] text-accent-foreground/70 max-w-md mx-auto leading-relaxed">
+          <p className="mt-4 text-body text-accent-foreground/70 max-w-md mx-auto leading-relaxed">
             Consigue tu set, unete a un curso y forma parte de la comunidad de roundnet mas grande de Chile.
           </p>
           <div className="mt-9 flex flex-wrap gap-3 justify-center">
             <Link
               href="/productos"
-              className="inline-flex items-center gap-2 h-12 px-8 rounded-full bg-accent-foreground text-accent text-[13px] font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300"
+              className="inline-flex items-center gap-2 h-12 px-8 rounded-full bg-accent-foreground text-accent text-ui font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300"
             >
               Comprar un set
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
             <Link
               href="/nexuniversity"
-              className="inline-flex items-center h-12 px-8 rounded-full border border-accent-foreground/30 text-accent-foreground text-[13px] font-medium hover:bg-accent-foreground/10 transition-all duration-300"
+              className="inline-flex items-center h-12 px-8 rounded-full border border-accent-foreground/30 text-accent-foreground text-ui font-medium hover:bg-accent-foreground/10 transition-all duration-300"
             >
               Tomar un curso
             </Link>
@@ -395,18 +401,14 @@ function CTA() {
 
 export function SpikeballPageClient() {
   return (
-    <CartProvider>
-      <Navbar overHero />
-      <main>
-        <Hero />
-        <Intro />
-        <History />
-        <HowToPlay />
-        <Scoring />
-        <Equipment />
-        <CTA />
-      </main>
-      <Footer />
-    </CartProvider>
+    <SiteShell overHero>
+      <Hero />
+      <Intro />
+      <History />
+      <HowToPlay />
+      <Scoring />
+      <Equipment />
+      <CTA />
+    </SiteShell>
   )
 }

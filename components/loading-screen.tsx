@@ -1,7 +1,13 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react"
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react"
 import { motion, AnimatePresence } from "motion/react"
+
+/** La intro se muestra una vez por sesion de navegacion, no en cada visita a la home. */
+const INTRO_SEEN_KEY = "nexus:intro-visto"
+
+// useLayoutEffect avisa por consola si corre en el servidor; en SSR no hay layout que medir.
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect
 
 function seededRandom(seed: number) {
   let s = seed
@@ -12,8 +18,23 @@ function seededRandom(seed: number) {
 }
 
 export function LoadingScreen() {
+  // Arranca en false tanto en el servidor como en el primer render del cliente, para
+  // que no haya desajuste de hidratacion. El layout effect corre ANTES del primer
+  // pintado, asi que en una segunda visita la intro nunca llega a verse.
   const [done, setDone] = useState(false)
   const [progress, setProgress] = useState(0)
+
+  useIsomorphicLayoutEffect(() => {
+    try {
+      if (sessionStorage.getItem(INTRO_SEEN_KEY)) {
+        setDone(true)
+        return
+      }
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1")
+    } catch {
+      // Modo privado o storage bloqueado: se muestra la intro, que es el default.
+    }
+  }, [])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const brandRef = useRef<HTMLDivElement>(null)
   const animFrameRef = useRef<number>(0)
@@ -273,7 +294,7 @@ export function LoadingScreen() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.4 }}
                 transition={{ duration: 0.7, delay: 0.7 }}
-                className="text-[9px] md:text-[10px] tracking-[0.35em] uppercase text-white/60 font-light select-none"
+                className="text-[9px] md:text-micro tracking-[0.35em] uppercase text-white/60 font-light select-none"
               >
                 Conexion &middot; Comunidad &middot; Movimiento
               </motion.p>

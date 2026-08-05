@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next"
 import { SITE_URL } from "@/lib/site-config"
-import { getAllBlogSlugs } from "@/lib/blog-data"
+import { blogPosts } from "@/lib/blog-data"
 import { getProducts, getCollections } from "@/lib/shopify"
 
 const staticRoutes = ["", "/spikeball", "/nexuniversity", "/corporativo", "/contacto", "/blog", "/productos"]
+
+// El sitemap consulta Shopify: sin esto se regenera en cada request.
+export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
@@ -15,9 +18,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "" ? 1 : 0.8,
   }))
 
-  const blogEntries: MetadataRoute.Sitemap = getAllBlogSlugs().map((slug) => ({
-    url: `${SITE_URL}/blog/${slug}`,
-    lastModified: now,
+  // lastModified real por articulo. Antes todos reportaban la hora de generacion,
+  // asi que un post sin cambios se veia recien modificado en cada build.
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedISO ?? post.dateISO),
     changeFrequency: "monthly",
     priority: 0.6,
   }))

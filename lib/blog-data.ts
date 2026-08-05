@@ -4,7 +4,12 @@ export type BlogPost = {
   excerpt: string
   category: string
   image: string
+  /** Fecha legible para mostrar, ej "28 Abr 2026". No la usa el structured data. */
   date: string
+  /** ISO-8601. Es la que alimenta datePublished del JSON-LD y lastModified del sitemap. */
+  dateISO: string
+  /** ISO-8601 de la ultima edicion de fondo. Si falta, se asume dateISO. */
+  updatedISO?: string
   readTime: string
   featured: boolean
   slug: string
@@ -18,6 +23,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guias",
     image: "/images/blog-1.jpg",
     date: "28 Abr 2026",
+    dateISO: "2026-04-28",
     readTime: "5 min",
     featured: true,
     slug: "como-elegir-primer-set",
@@ -29,6 +35,7 @@ export const blogPosts: BlogPost[] = [
     category: "Tips",
     image: "/images/blog-2.jpg",
     date: "22 Abr 2026",
+    dateISO: "2026-04-22",
     readTime: "4 min",
     featured: false,
     slug: "ejercicios-mejorar-spike",
@@ -40,6 +47,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guias",
     image: "/images/blog-3.jpg",
     date: "18 Abr 2026",
+    dateISO: "2026-04-18",
     readTime: "3 min",
     featured: false,
     slug: "guia-armado-rapido",
@@ -51,6 +59,7 @@ export const blogPosts: BlogPost[] = [
     category: "Torneos",
     image: "/images/events.jpg",
     date: "10 Abr 2026",
+    dateISO: "2026-04-10",
     readTime: "6 min",
     featured: false,
     slug: "resultados-nexus-open",
@@ -62,6 +71,7 @@ export const blogPosts: BlogPost[] = [
     category: "Comunidad",
     image: "/images/about.jpg",
     date: "5 Abr 2026",
+    dateISO: "2026-04-05",
     readTime: "7 min",
     featured: false,
     slug: "comunidad-nexus-numeros",
@@ -73,6 +83,7 @@ export const blogPosts: BlogPost[] = [
     category: "Producto",
     image: "/images/product-pro.jpg",
     date: "1 Abr 2026",
+    dateISO: "2026-04-01",
     readTime: "8 min",
     featured: false,
     slug: "review-nexus-tournament",

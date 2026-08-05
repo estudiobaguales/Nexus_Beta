@@ -1,32 +1,24 @@
+import type { Metadata } from "next"
 import { ContactoPageClient } from "@/components/contacto-page-client"
-import { absoluteUrl } from "@/lib/site-config"
+import { JsonLd } from "@/components/json-ld"
+import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
 
-export const metadata = {
-  title: "Contacto | Nexus",
+const crumbs: Crumb[] = [
+  { label: "Inicio", href: "/" },
+  { label: "Contacto", href: "/contacto" },
+]
+
+export const metadata: Metadata = buildMetadata({
+  title: "Contacto",
   description: "Escribinos tus dudas sobre productos, pedidos o la comunidad Nexus. Te respondemos a la brevedad.",
+  path: "/contacto",
   keywords: ["nexus sports", "contacto", "soporte nexus"],
-  alternates: { canonical: "/contacto" },
-  openGraph: {
-    title: "Contacto | Nexus",
-    description: "Escribinos tus dudas sobre productos, pedidos o la comunidad Nexus.",
-    url: "/contacto",
-    type: "website",
-  },
-}
+})
 
 export default function ContactoPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Contacto", item: absoluteUrl("/contacto") },
-    ],
-  }
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <ContactoPageClient />
     </>
   )

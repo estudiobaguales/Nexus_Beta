@@ -1,12 +1,15 @@
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import type { Crumb } from "@/lib/seo"
 
-export type Crumb = { label: string; href: string }
+// El tipo vive en lib/seo.ts: el mismo Crumb[] alimenta este breadcrumb visual y
+// el BreadcrumbList JSON-LD del server component, para que no se separen.
+export type { Crumb }
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="breadcrumb" className="mb-6">
-      <ol className="flex items-center flex-wrap gap-1.5 text-[12px] text-muted-foreground">
+      <ol className="flex items-center flex-wrap gap-1.5 text-caption text-muted-foreground">
         {items.map((item, i) => {
           const isLast = i === items.length - 1
           return (

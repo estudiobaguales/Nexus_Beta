@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getProduct, getProducts } from "@/lib/shopify"
-import { absoluteUrl } from "@/lib/site-config"
+import { getFirstAvailableVariant } from "@/lib/shopify/utils"
+import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
+import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
 import { ProductDetailPageClient } from "@/components/product-detail-page-client"
 
 export async function generateStaticParams() {
@@ -25,27 +28,20 @@ export async function generateMetadata({
   if (!product) return {}
 
   const image = product.images.edges[0]?.node
-  const description = product.description.slice(0, 160)
-  const url = `/productos/${product.handle}`
 
-  return {
-    title: `${product.title} | Nexus`,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title: product.title,
-      description,
-      url,
-      type: "website",
-      images: image ? [{ url: image.url, alt: image.altText || product.title }] : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: product.title,
-      description,
-      images: image ? [image.url] : undefined,
-    },
-  }
+  return buildMetadata({
+    title: product.title,
+    description: product.description.slice(0, 160),
+    path: `/productos/${product.handle}`,
+    ...(image ? { image: image.url, imageAlt: image.altText || product.title } : {}),
+  })
+}
+
+/** Google pide priceValidUntil en la oferta; sin un dato real, se proyecta un ano. */
+function oneYearFromNow(): string {
+  const date = new Date()
+  date.setFullYear(date.getFullYear() + 1)
+  return date.toISOString().split("T")[0]
 }
 
 export default async function ProductDetailPage({
@@ -59,6 +55,18 @@ export default async function ProductDetailPage({
 
   const price = product.priceRange.minVariantPrice
   const image = product.images.edges[0]?.node
+  const url = absoluteUrl(`/productos/${product.handle}`)
+
+  // Antes se usaba product.id, que es el GID crudo de Shopify
+  // ("gid://shopify/Product/123") y no es un SKU valido.
+  const variant = getFirstAvailableVariant(product) ?? product.variants[0]
+  const sku = variant?.sku || product.handle
+
+  const crumbs: Crumb[] = [
+    { label: "Inicio", href: "/" },
+    { label: "Tienda", href: "/productos" },
+    { label: product.title, href: `/productos/${product.handle}` },
+  ]
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -66,32 +74,26 @@ export default async function ProductDetailPage({
     name: product.title,
     description: product.description,
     image: image ? [absoluteUrl(image.url)] : undefined,
-    sku: product.id,
+    sku,
+    ...(product.productType ? { category: product.productType } : {}),
+    brand: { "@type": "Brand", name: SITE_NAME },
     offers: {
       "@type": "Offer",
       priceCurrency: price.currencyCode,
       price: price.amount,
+      priceValidUntil: oneYearFromNow(),
+      itemCondition: "https://schema.org/NewCondition",
       availability: product.availableForSale
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
-      url: absoluteUrl(`/productos/${product.handle}`),
+      url,
+      seller: { "@type": "Organization", name: SITE_NAME },
     },
-  }
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Tienda", item: absoluteUrl("/productos") },
-      { "@type": "ListItem", position: 3, name: product.title, item: absoluteUrl(`/productos/${product.handle}`) },
-    ],
   }
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={[productJsonLd, breadcrumbJsonLd(crumbs)]} />
       <ProductDetailPageClient product={product} />
     </>
   )

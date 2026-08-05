@@ -34,7 +34,7 @@ export function CartDrawer() {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-border">
-              <h2 className="text-[15px] font-semibold text-foreground">Carrito</h2>
+              <h2 className="text-body font-semibold text-foreground">Carrito</h2>
               <button
                 onClick={closeCart}
                 aria-label="Cerrar carrito"
@@ -51,10 +51,10 @@ export function CartDrawer() {
                   <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center">
                     <ShoppingBag className="w-5 h-5 text-muted-foreground" strokeWidth={1.5} />
                   </div>
-                  <p className="text-[13px] text-muted-foreground">Tu carrito esta vacio</p>
+                  <p className="text-ui text-muted-foreground">Tu carrito esta vacio</p>
                   <button
                     onClick={closeCart}
-                    className="h-9 px-5 rounded-full border border-border text-[12px] font-medium text-foreground hover:bg-secondary transition-colors"
+                    className="h-9 px-5 rounded-full border border-border text-caption font-medium text-foreground hover:bg-secondary transition-colors"
                   >
                     Seguir comprando
                   </button>
@@ -78,18 +78,19 @@ export function CartDrawer() {
                               src={image.url}
                               alt={image.altText || line.merchandise.product.title}
                               fill
+                              sizes="72px"
                               className="object-cover"
                             />
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-[13px] font-medium text-foreground truncate">
+                          <p className="text-ui font-medium text-foreground truncate">
                             {line.merchandise.product.title}
                           </p>
                           {line.merchandise.title !== "Default Title" && (
-                            <p className="text-[11px] text-muted-foreground">{line.merchandise.title}</p>
+                            <p className="text-eyebrow text-muted-foreground">{line.merchandise.title}</p>
                           )}
-                          <p className="text-[13px] font-medium text-foreground mt-1">
+                          <p className="text-ui font-medium text-foreground mt-1">
                             ${parseFloat(line.merchandise.price.amount).toLocaleString("es-CL")}
                           </p>
                           <div className="flex items-center gap-2 mt-2">
@@ -104,7 +105,7 @@ export function CartDrawer() {
                             >
                               <Minus className="w-3 h-3" strokeWidth={1.5} />
                             </button>
-                            <span className="text-[12px] font-medium w-5 text-center tabular-nums">{line.quantity}</span>
+                            <span className="text-caption font-medium w-5 text-center tabular-nums">{line.quantity}</span>
                             <button
                               onClick={() => updateItem(line.id, line.quantity + 1)}
                               className="w-6 h-6 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors"
@@ -125,8 +126,8 @@ export function CartDrawer() {
             {lines.length > 0 && cart && (
               <div className="border-t border-border px-6 py-5">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[13px] text-muted-foreground">Subtotal</span>
-                  <span className="text-[15px] font-semibold text-foreground tabular-nums">
+                  <span className="text-ui text-muted-foreground">Subtotal</span>
+                  <span className="text-body font-semibold text-foreground tabular-nums">
                     ${parseFloat(cart.cost.totalAmount.amount).toLocaleString("es-CL")} {cart.cost.totalAmount.currencyCode}
                   </span>
                 </div>
@@ -134,7 +135,7 @@ export function CartDrawer() {
                   href={cart.checkoutUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full h-11 rounded-full bg-foreground text-background text-[13px] font-medium hover:opacity-80 transition-opacity"
+                  className="flex items-center justify-center w-full h-11 rounded-full bg-foreground text-background text-ui font-medium hover:opacity-80 transition-opacity"
                 >
                   {isLoading ? "Procesando..." : "Ir al Checkout"}
                 </a>

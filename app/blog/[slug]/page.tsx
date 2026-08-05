@@ -1,11 +1,21 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getBlogPost, getAllBlogSlugs } from "@/lib/blog-data"
-import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
+import { absoluteUrl, SITE_NAME, ORG_LOGO } from "@/lib/site-config"
+import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
 import { BlogPostPageClient } from "@/components/blog-post-page-client"
 
 export function generateStaticParams() {
   return getAllBlogSlugs().map((slug) => ({ slug }))
+}
+
+function crumbsFor(post: { title: string; slug: string }): Crumb[] {
+  return [
+    { label: "Inicio", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: post.title, href: `/blog/${post.slug}` },
+  ]
 }
 
 export async function generateMetadata({
@@ -17,28 +27,14 @@ export async function generateMetadata({
   const post = getBlogPost(slug)
   if (!post) return {}
 
-  const title = `${post.title} | Nexus Blog`
-  const description = post.excerpt.slice(0, 160)
-  const url = `/blog/${post.slug}`
-
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title: post.title,
-      description,
-      url,
-      type: "article",
-      images: [{ url: post.image }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description,
-      images: [post.image],
-    },
-  }
+  return buildMetadata({
+    title: post.title,
+    description: post.excerpt.slice(0, 160),
+    path: `/blog/${post.slug}`,
+    type: "article",
+    image: post.image,
+    imageAlt: post.title,
+  })
 }
 
 export default async function BlogPostPage({
@@ -56,26 +52,23 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.excerpt,
     image: [absoluteUrl(post.image)],
-    datePublished: post.date,
-    author: { "@type": "Organization", name: SITE_NAME },
-    publisher: { "@type": "Organization", name: SITE_NAME },
+    // ISO-8601: antes se pasaba post.date ("28 Abr 2026"), que Google descarta.
+    datePublished: post.dateISO,
+    dateModified: post.updatedISO ?? post.dateISO,
+    articleSection: post.category,
+    inLanguage: "es-CL",
+    author: { "@type": "Organization", name: SITE_NAME, url: absoluteUrl("/") },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: absoluteUrl(ORG_LOGO) },
+    },
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
-  }
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog") },
-      { "@type": "ListItem", position: 3, name: post.title, item: absoluteUrl(`/blog/${post.slug}`) },
-    ],
   }
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={[articleJsonLd, breadcrumbJsonLd(crumbsFor(post))]} />
       <BlogPostPageClient post={post} />
     </>
   )

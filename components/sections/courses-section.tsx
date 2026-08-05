@@ -60,6 +60,7 @@ export function CoursesSection() {
                 src="/images/courses.jpg"
                 alt="Instructor ensenando roundnet"
                 fill
+                sizes="(max-width: 1024px) 100vw, 520px"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
@@ -74,13 +75,13 @@ export function CoursesSection() {
                 <div className="bg-background/95 backdrop-blur-xl rounded-xl p-5 shadow-lg shadow-foreground/5">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    <p className="text-[11px] tracking-[0.15em] uppercase text-accent font-medium">Inscripciones abiertas</p>
+                    <p className="text-eyebrow tracking-[0.15em] uppercase text-accent font-medium">Inscripciones abiertas</p>
                   </div>
-                  <p className="text-[15px] font-semibold text-foreground">Proximo curso: 15 de Junio</p>
-                  <p className="text-[12px] text-muted-foreground mt-1">Parque Bicentenario, Santiago</p>
+                  <p className="text-body font-semibold text-foreground">Proximo curso: 15 de Junio</p>
+                  <p className="text-caption text-muted-foreground mt-1">Parque Bicentenario, Santiago</p>
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 mt-4 h-10 px-5 rounded-full bg-foreground text-background text-[12px] font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-200"
+                    className="inline-flex items-center gap-2 mt-4 h-10 px-5 rounded-full bg-foreground text-background text-caption font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-200"
                   >
                     Reservar mi cupo
                     <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
@@ -97,7 +98,7 @@ export function CoursesSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">
+              <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">
                 Academia
               </p>
               <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.02]">
@@ -105,7 +106,7 @@ export function CoursesSection() {
                 <br />
                 los mejores.
               </h2>
-              <p className="mt-5 text-[15px] text-muted-foreground leading-[1.7] max-w-md">
+              <p className="mt-5 text-body text-muted-foreground leading-[1.7] max-w-md">
                 Instructores certificados, grupos reducidos y un metodo progresivo
                 disenado para cada nivel. Del primer saque al torneo nacional.
               </p>
@@ -123,12 +124,12 @@ export function CoursesSection() {
                   className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-xl border border-border hover:border-foreground/15 hover:shadow-md hover:shadow-foreground/[0.02] bg-card transition-all duration-500"
                 >
                   <div className="flex items-start sm:items-center gap-4">
-                    <span className={`text-[10px] tracking-[0.1em] uppercase font-semibold px-3 py-1.5 rounded-lg shrink-0 ${course.color}`}>
+                    <span className={`text-micro tracking-[0.1em] uppercase font-semibold px-3 py-1.5 rounded-lg shrink-0 ${course.color}`}>
                       {course.level}
                     </span>
                     <div>
-                      <h3 className="text-[15px] font-semibold text-foreground group-hover:text-accent transition-colors duration-300">{course.title}</h3>
-                      <div className="flex flex-wrap gap-3 mt-1.5 text-[11px] text-muted-foreground">
+                      <h3 className="text-body font-semibold text-foreground group-hover:text-accent transition-colors duration-300">{course.title}</h3>
+                      <div className="flex flex-wrap gap-3 mt-1.5 text-eyebrow text-muted-foreground">
                         <span className="flex items-center gap-1"><Calendar className="w-3 h-3" strokeWidth={1.5} /> {course.schedule}</span>
                         <span className="flex items-center gap-1"><MapPin className="w-3 h-3" strokeWidth={1.5} /> {course.location}</span>
                         <span className="flex items-center gap-1"><Clock className="w-3 h-3" strokeWidth={1.5} /> {course.duration}</span>
@@ -136,7 +137,7 @@ export function CoursesSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 sm:gap-6">
-                    <span className="text-[16px] font-semibold text-foreground tabular-nums">{course.price}</span>
+                    <span className="text-body-lg font-semibold text-foreground tabular-nums">{course.price}</span>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full border border-border group-hover:border-foreground/20 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
                       <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </div>

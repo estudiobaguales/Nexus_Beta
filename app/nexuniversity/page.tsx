@@ -1,33 +1,26 @@
+import type { Metadata } from "next"
 import { NexuniversityPageClient } from "@/components/nexuniversity-page-client"
-import { absoluteUrl } from "@/lib/site-config"
+import { JsonLd } from "@/components/json-ld"
+import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
 
-export const metadata = {
-  title: "Nexuniversity | Nexus",
+const crumbs: Crumb[] = [
+  { label: "Inicio", href: "/" },
+  { label: "Nexuniversity", href: "/nexuniversity" },
+]
+
+export const metadata: Metadata = buildMetadata({
+  title: "Nexuniversity",
   description:
     "Cursos y torneos de roundnet en Chile. Instructores certificados, grupos reducidos y calendario 2026 de eventos y ligas.",
+  path: "/nexuniversity",
   keywords: ["nexus sports", "cursos roundnet", "academia roundnet", "torneos roundnet", "nexuniversity"],
-  alternates: { canonical: "/nexuniversity" },
-  openGraph: {
-    title: "Nexuniversity | Nexus",
-    description: "Formacion y competencia: cursos, ligas y torneos de roundnet en todo Chile.",
-    url: "/nexuniversity",
-    type: "website",
-  },
-}
+  image: "/images/courses.jpg",
+})
 
 export default function NexuniversityPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Nexuniversity", item: absoluteUrl("/nexuniversity") },
-    ],
-  }
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <NexuniversityPageClient />
     </>
   )

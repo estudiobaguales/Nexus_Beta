@@ -4,8 +4,11 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    // TODO: evaluar cambiar a false + probar en el host de deploy real antes de produccion.
-    unoptimized: true,
+    // Optimizacion activada: sin esto no hay WebP/AVIF, ni srcset, y los `sizes`
+    // que declaran los componentes no sirven de nada.
+    // VERIFICAR en el host de deploy real: si no es Vercel, el optimizador necesita
+    // soporte del runtime (en export estatico hay que volver a unoptimized: true).
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com" }],
   },
   env: {

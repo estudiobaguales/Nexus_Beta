@@ -1,7 +1,17 @@
 import type { Metadata, Viewport } from "next"
 import { Montserrat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { SITE_URL, SITE_NAME } from "@/lib/site-config"
+import {
+  SITE_URL,
+  SITE_NAME,
+  TITLE_SUFFIX,
+  OG_DEFAULT_IMAGE,
+  ORG_LOGO,
+  SOCIAL_LINKS,
+  absoluteUrl,
+} from "@/lib/site-config"
+import { CartProvider } from "@/components/cart/cart-context"
+import { JsonLd } from "@/components/json-ld"
 import "./globals.css"
 
 const montserrat = Montserrat({
@@ -17,7 +27,12 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title,
+  // La plantilla evita que cada pagina repita el sufijo a mano (antes convivian
+  // "| Nexus", "| Nexus Blog" y "NEXUS Sports |").
+  title: {
+    default: title,
+    template: `%s | ${TITLE_SUFFIX}`,
+  },
   description,
   keywords: ["nexus", "nexus sports", "roundnet", "spikeball", "deporte", "chile", "torneos", "deportes alternativos"],
   alternates: { canonical: "/" },
@@ -28,18 +43,18 @@ export const metadata: Metadata = {
     url: "/",
     title,
     description,
-    images: [{ url: "/images/hero-main.jpg" }],
+    images: [{ url: OG_DEFAULT_IMAGE, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/images/hero-main.jpg"],
+    images: [OG_DEFAULT_IMAGE],
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    apple: "/apple-icon.png",
   },
 }
 
@@ -48,7 +63,11 @@ const organizationJsonLd = {
   "@type": "SportsOrganization",
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.svg`,
+  logo: absoluteUrl(ORG_LOGO),
+  description,
+  areaServed: { "@type": "Country", name: "Chile" },
+  // Se omite si no hay perfiles reales cargados (ver SOCIAL_LINKS en lib/site-config.ts).
+  ...(SOCIAL_LINKS.length > 0 ? { sameAs: SOCIAL_LINKS } : {}),
 }
 
 export const viewport: Viewport = {
@@ -68,11 +87,8 @@ export default function RootLayout({
         className={`${montserrat.variable} font-sans antialiased min-h-screen`}
         suppressHydrationWarning
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        {children}
+        <JsonLd data={organizationJsonLd} />
+        <CartProvider>{children}</CartProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

@@ -26,7 +26,7 @@ const highlightLinks: NavLink[] = [
 ]
 
 const highlightPillClass =
-  "inline-flex items-center h-8 px-4 rounded-full bg-accent text-accent-foreground text-[12px] font-semibold hover:brightness-105 hover:scale-[1.03] transition-all duration-300"
+  "inline-flex items-center h-8 px-4 rounded-full bg-accent text-accent-foreground text-caption font-semibold hover:brightness-105 hover:scale-[1.03] transition-all duration-300"
 
 export function Navbar({ overHero = false }: { overHero?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
@@ -48,7 +48,10 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: overHero ? 4.6 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+        // Sin el delay de 4.6s que esperaba a la intro: la intro ahora solo aparece
+        // en la primera visita de la sesion, asi que atarse a su duracion dejaba el
+        // navbar invisible varios segundos en todas las demas.
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-background/80 backdrop-blur-2xl shadow-[0_1px_0_0_rgba(0,0,0,0.04)]"
@@ -73,7 +76,7 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-[13px] rounded-lg transition-colors duration-300 hover:bg-foreground/[0.03] ${
+                  className={`relative px-4 py-2 text-ui rounded-lg transition-colors duration-300 hover:bg-foreground/[0.03] ${
                     lightOnDark ? "text-background/80 hover:text-background" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -181,7 +184,7 @@ export function Navbar({ overHero = false }: { overHero?: boolean }) {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-center w-full h-14 rounded-2xl bg-accent text-accent-foreground text-[15px] font-semibold hover:brightness-105 transition-all"
+                      className="flex items-center justify-center w-full h-14 rounded-2xl bg-accent text-accent-foreground text-body font-semibold hover:brightness-105 transition-all"
                     >
                       {link.label}
                     </Link>

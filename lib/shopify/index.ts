@@ -146,6 +146,7 @@ export async function getProducts({
                 node {
                   id
                   title
+                  sku
                   price {
                     amount
                     currencyCode
@@ -228,6 +229,7 @@ export async function getProduct(
             node {
               id
               title
+              sku
               price {
                 amount
                 currencyCode
@@ -377,6 +379,7 @@ export async function getCollectionProducts({
                   node {
                     id
                     title
+                    sku
                     price {
                       amount
                       currencyCode
@@ -436,6 +439,7 @@ export async function createCart(): Promise<ShopifyCart> {
                   ... on ProductVariant {
                     id
                     title
+                    sku
                     price {
                       amount
                       currencyCode
@@ -506,6 +510,7 @@ export async function addCartLines(
                   ... on ProductVariant {
                     id
                     title
+                    sku
                     price {
                       amount
                       currencyCode
@@ -583,6 +588,7 @@ export async function updateCartLines(
                   ... on ProductVariant {
                     id
                     title
+                    sku
                     price {
                       amount
                       currencyCode
@@ -660,6 +666,7 @@ export async function removeCartLines(
                   ... on ProductVariant {
                     id
                     title
+                    sku
                     price {
                       amount
                       currencyCode
@@ -733,6 +740,7 @@ export async function getCart(cartId: string): Promise<ShopifyCart | null> {
                 ... on ProductVariant {
                   id
                   title
+                  sku
                   price {
                     amount
                     currencyCode

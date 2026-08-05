@@ -11,6 +11,8 @@ export type SelectedOption = {
 export type ProductVariant = {
   id: string
   title: string
+  /** SKU real de Shopify. Puede venir null si el producto no lo define. */
+  sku?: string | null
   availableForSale: boolean
   selectedOptions: SelectedOption[]
   price: Money

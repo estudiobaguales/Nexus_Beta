@@ -1,10 +1,30 @@
+import type { Metadata } from "next"
 import { SpikeballPageClient } from "@/components/spikeball-page-client"
-import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
+import { JsonLd } from "@/components/json-ld"
+import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
+import { absoluteUrl, SITE_NAME, ORG_LOGO } from "@/lib/site-config"
 
-export const metadata = {
-  title: "Spikeball (Roundnet): que es, reglas y como se juega | Nexus",
+const TITLE = "Spikeball (Roundnet): que es, reglas y como se juega"
+const HERO_IMAGE = "/images/spikeball-hero.png"
+
+// Fechas de la guia pillar. Actualizar PUBLISHED solo si se reescribe el articulo;
+// UPDATED cada vez que cambie el contenido de fondo.
+const PUBLISHED = "2026-04-01"
+const UPDATED = "2026-08-01"
+
+const crumbs: Crumb[] = [
+  { label: "Inicio", href: "/" },
+  { label: "Spikeball", href: "/spikeball" },
+]
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
   description:
     "Guia completa de Spikeball / Roundnet: su historia, reglas oficiales, como se juega 2 contra 2 y todo lo que necesitas para empezar en Chile.",
+  path: "/spikeball",
+  type: "article",
+  image: HERO_IMAGE,
+  imageAlt: "Jugadores de spikeball en accion",
   keywords: [
     "spikeball",
     "roundnet",
@@ -14,41 +34,32 @@ export const metadata = {
     "spikeball chile",
     "roundnet chile",
   ],
-  alternates: { canonical: "/spikeball" },
-  openGraph: {
-    title: "Spikeball (Roundnet): que es, reglas y como se juega",
-    description:
-      "La guia definitiva del roundnet: historia, reglas oficiales y como empezar a jugar el deporte que crece mas rapido en el mundo.",
-    url: "/spikeball",
-    type: "article",
-    images: [{ url: "/images/spikeball-hero.png" }],
-  },
-}
+})
 
 export default function SpikeballPage() {
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Spikeball (Roundnet): que es, reglas y como se juega",
+    headline: TITLE,
+    description:
+      "Guia completa de Spikeball / Roundnet: historia, reglas oficiales y como empezar a jugar en Chile.",
     about: "Spikeball / Roundnet",
-    image: [absoluteUrl("/images/spikeball-hero.png")],
-    author: { "@type": "Organization", name: SITE_NAME },
-    publisher: { "@type": "Organization", name: SITE_NAME },
-  }
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Spikeball", item: absoluteUrl("/spikeball") },
-    ],
+    image: [absoluteUrl(HERO_IMAGE)],
+    datePublished: PUBLISHED,
+    dateModified: UPDATED,
+    inLanguage: "es-CL",
+    author: { "@type": "Organization", name: SITE_NAME, url: absoluteUrl("/") },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: absoluteUrl(ORG_LOGO) },
+    },
+    mainEntityOfPage: absoluteUrl("/spikeball"),
   }
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={[articleJsonLd, breadcrumbJsonLd(crumbs)]} />
       <SpikeballPageClient />
     </>
   )

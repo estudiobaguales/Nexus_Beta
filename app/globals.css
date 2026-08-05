@@ -52,7 +52,43 @@
 
 @theme inline {
   --font-sans: var(--font-montserrat), 'Montserrat Fallback', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+
+  /* Escala tipografica NEXUS.
+     Nombrada por rol, no por tamano, para no pisar la escala default de Tailwind
+     (text-sm/base/lg siguen siendo los de Tailwind). Reemplaza los valores
+     arbitrarios text-[10px]..text-[17px] repartidos por la app. */
+  --text-micro: 0.625rem; /* 10px - badges, contadores */
+  --text-micro--line-height: 1.4;
+  --text-eyebrow: 0.6875rem; /* 11px - kickers uppercase */
+  --text-eyebrow--line-height: 1.4;
+  --text-caption: 0.75rem; /* 12px - metadatos, breadcrumbs */
+  --text-caption--line-height: 1.5;
+  --text-ui: 0.8125rem; /* 13px - botones, nav, labels */
+  --text-ui--line-height: 1.5;
+  --text-body-sm: 0.875rem; /* 14px */
+  --text-body-sm--line-height: 1.6;
+  --text-body: 0.9375rem; /* 15px - cuerpo por defecto */
+  --text-body--line-height: 1.7;
+  --text-body-lg: 1rem; /* 16px - lede, cuerpo de articulo */
+  --text-body-lg--line-height: 1.7;
+
+  /* Headings fluidos. Ojo: --text-section es mayor que --text-page a proposito:
+     los H2 de seccion de marketing son visualmente mas grandes que los H1 de
+     paginas interiores. */
+  --text-display: clamp(2.5rem, 8vw, 5.5rem); /* hero home */
+  --text-display--line-height: 1.05;
+  --text-section: clamp(2.2rem, 5vw, 3.8rem); /* H2 de seccion */
+  --text-section--line-height: 1.05;
+  --text-page: clamp(2rem, 5vw, 3.5rem); /* H1 de pagina interior */
+  --text-page--line-height: 1.05;
+  --text-subsection: clamp(1.5rem, 3vw, 2.5rem);
+  --text-subsection--line-height: 1.15;
+
+  /* Animaciones del Accordion. Definidas aca a proposito en vez de depender de
+     tw-animate-css, para que el componente no se rompa si esa dependencia cambia. */
+  --animate-accordion-down: accordion-down 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-accordion-up: accordion-up 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
   --color-brand-gold: var(--brand-gold);
   --color-brand-black: var(--brand-black);
   --color-brand-terracotta: var(--brand-terracotta);
@@ -94,6 +130,23 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @layer base {

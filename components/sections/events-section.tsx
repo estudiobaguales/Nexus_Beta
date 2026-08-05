@@ -62,7 +62,7 @@ export function EventsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-4 font-medium">
+            <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">
               Calendario 2026
             </p>
             <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-semibold tracking-[-0.035em] text-background leading-[1.02]">
@@ -70,7 +70,7 @@ export function EventsSection() {
               <br />
               competencia vive.
             </h2>
-            <p className="mt-4 text-[15px] text-background/40 leading-relaxed max-w-md">
+            <p className="mt-4 text-body text-background/40 leading-relaxed max-w-md">
               Torneos, ligas y encuentros en todo Chile. Compite o ven a vivir la experiencia.
             </p>
           </motion.div>
@@ -80,7 +80,7 @@ export function EventsSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="group inline-flex items-center gap-2 h-12 px-8 rounded-full bg-background text-foreground text-[13px] font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-300 w-fit"
+            className="group inline-flex items-center gap-2 h-12 px-8 rounded-full bg-background text-foreground text-ui font-semibold hover:scale-[1.02] active:scale-[0.97] transition-transform duration-300 w-fit"
           >
             Ver todos los eventos
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
@@ -100,6 +100,7 @@ export function EventsSection() {
                 src="/images/events.jpg"
                 alt="Torneo Nexus Open"
                 fill
+                sizes="(max-width: 1024px) 100vw, 760px"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
@@ -107,10 +108,10 @@ export function EventsSection() {
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
                 <div className="flex items-start justify-between">
                   <div className="flex gap-2">
-                    <span className="text-[10px] tracking-[0.12em] uppercase bg-accent/90 text-accent-foreground px-3 py-1.5 rounded-full font-semibold">
+                    <span className="text-micro tracking-[0.12em] uppercase bg-accent/90 text-accent-foreground px-3 py-1.5 rounded-full font-semibold">
                       Destacado
                     </span>
-                    <span className="text-[10px] tracking-[0.12em] uppercase bg-background/15 backdrop-blur-md text-background/90 px-3 py-1.5 rounded-full font-medium">
+                    <span className="text-micro tracking-[0.12em] uppercase bg-background/15 backdrop-blur-md text-background/90 px-3 py-1.5 rounded-full font-medium">
                       {events[0].category}
                     </span>
                   </div>
@@ -120,10 +121,10 @@ export function EventsSection() {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-3.5 h-3.5 text-accent" strokeWidth={1.5} />
-                    <p className="text-[12px] text-background/60">{events[0].date}, {events[0].year}</p>
+                    <p className="text-caption text-background/60">{events[0].date}, {events[0].year}</p>
                   </div>
                   <h3 className="text-2xl md:text-4xl font-semibold text-background tracking-[-0.03em] leading-tight">{events[0].title}</h3>
-                  <div className="flex gap-5 mt-3 text-[12px] text-background/50">
+                  <div className="flex gap-5 mt-3 text-caption text-background/50">
                     <span className="flex items-center gap-1.5">
                       <MapPin className="w-3 h-3" strokeWidth={1.5} /> {events[0].location}
                     </span>
@@ -133,7 +134,7 @@ export function EventsSection() {
                   </div>
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 mt-5 h-10 px-6 rounded-full bg-background text-foreground text-[12px] font-semibold hover:bg-background/90 active:scale-[0.97] transition-all duration-200"
+                    className="inline-flex items-center gap-2 mt-5 h-10 px-6 rounded-full bg-background text-foreground text-caption font-semibold hover:bg-background/90 active:scale-[0.97] transition-all duration-200"
                   >
                     Inscribir equipo
                     <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
@@ -155,7 +156,7 @@ export function EventsSection() {
                 className="group flex flex-col justify-between p-6 rounded-2xl border border-background/10 hover:border-background/20 hover:bg-background/[0.04] transition-all duration-500 flex-1"
               >
                 <div className="flex items-start justify-between mb-6">
-                  <span className="text-[10px] tracking-[0.12em] uppercase text-background/40 font-medium">
+                  <span className="text-micro tracking-[0.12em] uppercase text-background/40 font-medium">
                     {event.category}
                   </span>
                   <ArrowUpRight className="w-4 h-4 text-background/15 group-hover:text-accent transition-colors duration-300" strokeWidth={1.5} />
@@ -163,14 +164,14 @@ export function EventsSection() {
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
                     <Calendar className="w-3 h-3 text-accent/60" strokeWidth={1.5} />
-                    <p className="text-[11px] text-background/40">{event.date}, {event.year}</p>
+                    <p className="text-eyebrow text-background/40">{event.date}, {event.year}</p>
                   </div>
                   <h3 className="text-lg font-semibold text-background tracking-[-0.01em] group-hover:text-accent transition-colors duration-300">{event.title}</h3>
-                  <p className="text-[12px] text-background/35 mt-1.5 flex items-center gap-1">
+                  <p className="text-caption text-background/35 mt-1.5 flex items-center gap-1">
                     <MapPin className="w-3 h-3" strokeWidth={1.5} /> {event.location}
                   </p>
                   <div className="flex items-center gap-2 mt-4">
-                    <span className="text-[11px] text-background/50 group-hover:text-accent/80 transition-colors duration-300 font-medium">
+                    <span className="text-eyebrow text-background/50 group-hover:text-accent/80 transition-colors duration-300 font-medium">
                       Mas info
                     </span>
                     <ArrowRight className="w-3 h-3 text-background/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" strokeWidth={1.5} />

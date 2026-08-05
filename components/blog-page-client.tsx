@@ -5,10 +5,11 @@ import { motion, useInView } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Clock, ArrowUpRight } from "lucide-react"
-import { CartProvider } from "@/components/cart/cart-context"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Breadcrumbs } from "@/components/breadcrumbs"
+import { SiteShell } from "@/components/site-shell"
+import { Section } from "@/components/ui/section"
+import { Button } from "@/components/ui/button"
+import { FilterPill } from "@/components/ui/filter-pill"
+import { PageHero } from "@/components/ui/page-hero"
 import { blogPosts, type BlogPost } from "@/lib/blog-data"
 
 const categories = ["Todos", "Guias", "Torneos", "Comunidad", "Producto", "Tips"]
@@ -33,32 +34,33 @@ function FeaturedPost({ post }: { post: BlogPost }) {
             src={post.image}
             alt={post.title}
             fill
+            sizes="(max-width: 1024px) 100vw, 620px"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute top-4 left-4">
-            <span className="text-[10px] tracking-[0.1em] uppercase bg-accent text-accent-foreground px-3 py-1.5 rounded-full font-semibold">
+            <span className="text-micro tracking-[0.1em] uppercase bg-accent text-accent-foreground px-3 py-1.5 rounded-full font-semibold">
               Destacado
             </span>
           </div>
         </div>
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] tracking-[0.1em] uppercase text-accent font-medium">{post.category}</span>
+            <span className="text-eyebrow tracking-[0.1em] uppercase text-accent font-medium">{post.category}</span>
             <span className="w-1 h-1 rounded-full bg-border" />
-            <span className="text-[12px] text-muted-foreground">{post.date}</span>
+            <span className="text-caption text-muted-foreground">{post.date}</span>
           </div>
           <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-foreground leading-[1.1] group-hover:text-accent transition-colors duration-300">
             {post.title}
           </h2>
-          <p className="mt-4 text-[15px] text-muted-foreground leading-relaxed max-w-md">
+          <p className="mt-4 text-body text-muted-foreground leading-relaxed max-w-md">
             {post.excerpt}
           </p>
           <div className="flex items-center gap-4 mt-6">
-            <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+            <div className="flex items-center gap-1.5 text-caption text-muted-foreground">
               <Clock className="w-3.5 h-3.5" strokeWidth={1.5} />
               {post.readTime}
             </div>
-            <span className="group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-1.5 text-[12px] text-foreground font-medium">
+            <span className="group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-1.5 text-caption text-foreground font-medium">
               Leer articulo <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
             </span>
           </div>
@@ -86,6 +88,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
             src={post.image}
             alt={post.title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute top-3 right-3">
@@ -95,17 +98,17 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
           </div>
         </div>
         <div className="flex items-center gap-3 mb-3">
-          <span className="text-[10px] tracking-[0.1em] uppercase text-accent font-medium">{post.category}</span>
+          <span className="text-micro tracking-[0.1em] uppercase text-accent font-medium">{post.category}</span>
           <span className="w-1 h-1 rounded-full bg-border" />
-          <span className="text-[11px] text-muted-foreground">{post.date}</span>
+          <span className="text-eyebrow text-muted-foreground">{post.date}</span>
         </div>
-        <h3 className="text-[16px] font-semibold tracking-[-0.01em] text-foreground leading-snug group-hover:text-accent transition-colors duration-300">
+        <h3 className="text-body-lg font-semibold tracking-[-0.01em] text-foreground leading-snug group-hover:text-accent transition-colors duration-300">
           {post.title}
         </h3>
-        <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
+        <p className="mt-2 text-ui text-muted-foreground leading-relaxed line-clamp-2">
           {post.excerpt}
         </p>
-        <div className="flex items-center gap-1.5 mt-4 text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-1.5 mt-4 text-eyebrow text-muted-foreground">
           <Clock className="w-3 h-3" strokeWidth={1.5} />
           {post.readTime}
         </div>
@@ -125,86 +128,57 @@ function BlogContent() {
     : rest.filter((p) => p.category === activeCategory)
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen pt-16">
-        {/* Hero */}
-        <section className="py-20 lg:py-28 bg-secondary/30">
-          <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
-            <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Blog", href: "/blog" }]} />
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    <SiteShell>
+      <PageHero
+        crumbs={[
+          { label: "Inicio", href: "/" },
+          { label: "Blog", href: "/blog" },
+        ]}
+        eyebrow="Blog"
+        title="Noticias y guias."
+        lede="Tips, torneos, lanzamientos y todo lo que pasa en la comunidad Nexus."
+      />
+
+      {/* Featured article */}
+      {featured && (
+        <Section spacing="content">
+          <FeaturedPost post={featured} />
+        </Section>
+      )}
+
+      {/* Category filter + articles grid */}
+      <Section spacing="marketing" className="pt-0">
+        <div className="flex items-center gap-2 overflow-x-auto mb-12 pb-6 border-b border-border">
+          {categories.map((cat) => (
+            <FilterPill
+              key={cat}
+              active={activeCategory === cat}
+              onClick={() => setActiveCategory(cat)}
             >
-              <p className="text-[11px] tracking-[0.3em] uppercase text-accent mb-3 font-medium">Blog</p>
-              <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.04em] text-foreground leading-[1.05]">
-                Noticias y guias.
-              </h1>
-              <p className="mt-3 text-[15px] text-muted-foreground max-w-lg">
-                Tips, torneos, lanzamientos y todo lo que pasa en la comunidad Nexus.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+              {cat}
+            </FilterPill>
+          ))}
+        </div>
 
-        {/* Featured article */}
-        {featured && (
-          <section className="py-16 lg:py-20">
-            <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
-              <FeaturedPost post={featured} />
-            </div>
-          </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          {filtered.map((post, i) => (
+            <PostCard key={post.id} post={post} index={i} />
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <div className="flex flex-col items-center py-20 gap-3 text-center">
+            <p className="text-body text-muted-foreground">No hay articulos en esta categoria aun.</p>
+            <Button size="sm" onClick={() => setActiveCategory("Todos")}>
+              Ver todos
+            </Button>
+          </div>
         )}
-
-        {/* Category filter + articles grid */}
-        <section className="pb-20 lg:pb-28">
-          <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
-            <div className="flex items-center gap-2 overflow-x-auto mb-12 pb-6 border-b border-border">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`shrink-0 h-9 px-4 rounded-full text-[12px] font-medium transition-all duration-300 ${
-                    activeCategory === cat
-                      ? "bg-foreground text-background"
-                      : "bg-secondary text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-              {filtered.map((post, i) => (
-                <PostCard key={post.id} post={post} index={i} />
-              ))}
-            </div>
-
-            {filtered.length === 0 && (
-              <div className="flex flex-col items-center py-20 gap-3 text-center">
-                <p className="text-[15px] text-muted-foreground">No hay articulos en esta categoria aun.</p>
-                <button
-                  onClick={() => setActiveCategory("Todos")}
-                  className="h-10 px-6 rounded-full bg-foreground text-background text-[13px] font-medium hover:opacity-80 transition-opacity"
-                >
-                  Ver todos
-                </button>
-              </div>
-            )}
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+      </Section>
+    </SiteShell>
   )
 }
 
 export function BlogPageClient() {
-  return (
-    <CartProvider>
-      <BlogContent />
-    </CartProvider>
-  )
+  return <BlogContent />
 }
