@@ -10,7 +10,7 @@ const courses = [
     id: 1,
     title: "Fundamentos",
     level: "Principiante",
-    schedule: "Sabados 10:00",
+    schedule: "Sábados 10:00",
     location: "Parque Bicentenario",
     duration: "4 semanas",
     price: "$15.000",
@@ -18,9 +18,9 @@ const courses = [
   },
   {
     id: 2,
-    title: "Tecnica y Estrategia",
+    title: "Técnica y Estrategia",
     level: "Intermedio",
-    schedule: "Mie & Vie 18:00",
+    schedule: "Mié y Vie 18:00",
     location: "Parque Araucano",
     duration: "6 semanas",
     price: "$25.000",
@@ -28,9 +28,9 @@ const courses = [
   },
   {
     id: 3,
-    title: "Competitivo Elite",
+    title: "Competitivo Élite",
     level: "Avanzado",
-    schedule: "Mar & Jue 17:00",
+    schedule: "Mar y Jue 17:00",
     location: "Estadio Nacional",
     duration: "8 semanas",
     price: "$35.000",
@@ -58,7 +58,7 @@ export function CoursesSection() {
             <motion.div style={{ y: imgY }} className="relative aspect-[3/4] rounded-2xl overflow-hidden">
               <Image
                 src="/images/courses.jpg"
-                alt="Instructor ensenando roundnet"
+                alt="Instructor enseñando roundnet a un grupo de alumnos"
                 fill
                 sizes="(max-width: 1024px) 100vw, 520px"
                 className="object-cover"
@@ -77,7 +77,7 @@ export function CoursesSection() {
                     <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                     <p className="text-eyebrow tracking-[0.15em] uppercase text-accent font-medium">Inscripciones abiertas</p>
                   </div>
-                  <p className="text-body font-semibold text-foreground">Proximo curso: 15 de Junio</p>
+                  <p className="text-body font-semibold text-foreground">Próximo curso: 15 de junio</p>
                   <p className="text-caption text-muted-foreground mt-1">Parque Bicentenario, Santiago</p>
                   <a
                     href="#"
@@ -101,14 +101,14 @@ export function CoursesSection() {
               <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">
                 Academia
               </p>
-              <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.02]">
+              <h2 className="text-section font-semibold tracking-[-0.035em] text-foreground">
                 Aprende con
                 <br />
                 los mejores.
               </h2>
               <p className="mt-5 text-body text-muted-foreground leading-[1.7] max-w-md">
-                Instructores certificados, grupos reducidos y un metodo progresivo
-                disenado para cada nivel. Del primer saque al torneo nacional.
+                Instructores certificados, grupos reducidos y un método progresivo
+                diseñado para cada nivel. Del primer saque al torneo nacional.
               </p>
             </motion.div>
 

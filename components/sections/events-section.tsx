@@ -65,7 +65,7 @@ export function EventsSection() {
             <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">
               Calendario 2026
             </p>
-            <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-semibold tracking-[-0.035em] text-background leading-[1.02]">
+            <h2 className="text-section font-semibold tracking-[-0.035em] text-background">
               Donde la
               <br />
               competencia vive.

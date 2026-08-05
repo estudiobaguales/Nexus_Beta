@@ -5,10 +5,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
 import { Clock, ArrowRight, ArrowUpRight } from "lucide-react"
-import { blogPosts } from "@/lib/blog-data"
+import { blogPosts, type BlogPost } from "@/lib/blog-data"
 import { Section } from "@/components/ui/section"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Button } from "@/components/ui/button"
+import type { SectionTone } from "@/components/ui/section"
 
 /**
  * Bloque 7 de la home: 3 articulos destacados.
@@ -22,27 +23,46 @@ function pickFeatured(count = 3) {
   return [...featured, ...rest].slice(0, count)
 }
 
-export function FeaturedPosts() {
+/**
+ * Los props son todos opcionales y sus defaults son exactamente lo que la home
+ * mostraba antes, para poder reusar el bloque en paginas interiores
+ * (Nexuniversity) sin duplicar la grilla de tarjetas.
+ */
+export function FeaturedPosts({
+  eyebrow = "Blog",
+  title = (
+    <>
+      Guías y <span className="text-muted-foreground">novedades.</span>
+    </>
+  ),
+  posts: postsProp,
+  tone = "muted",
+}: {
+  eyebrow?: string
+  title?: React.ReactNode
+  posts?: BlogPost[]
+  tone?: SectionTone
+} = {}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-60px" })
-  const posts = pickFeatured()
+  const posts = postsProp ?? pickFeatured()
 
   if (posts.length === 0) return null
 
   return (
-    <Section ref={ref} tone="muted" aria-labelledby="blog-titulo">
+    <Section ref={ref} tone={tone} aria-labelledby="blog-titulo">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Eyebrow className="mb-3">Blog</Eyebrow>
+          <Eyebrow className="mb-3">{eyebrow}</Eyebrow>
           <h2
             id="blog-titulo"
             className="text-section font-semibold tracking-[-0.035em] text-foreground"
           >
-            Guías y <span className="text-muted-foreground">novedades.</span>
+            {title}
           </h2>
         </motion.div>
         <motion.div
