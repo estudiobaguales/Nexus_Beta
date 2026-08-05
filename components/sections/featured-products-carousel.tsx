@@ -64,9 +64,9 @@ export function FeaturedProductsCarousel({ products }: { products: Product[] }) 
           <Eyebrow className="mb-3">Destacados</Eyebrow>
           <h2
             id="destacados-titulo"
-            className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]"
+            className="text-section font-semibold tracking-[-0.035em] text-foreground"
           >
-            Lo que mas <span className="text-muted-foreground">se juega.</span>
+            Lo que más <span className="text-muted-foreground">se juega.</span>
           </h2>
         </motion.div>
 

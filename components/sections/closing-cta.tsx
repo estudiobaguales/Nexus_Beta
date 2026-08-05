@@ -28,12 +28,12 @@ export function ClosingCta() {
       >
         <h2
           id="cierre-titulo"
-          className="text-[clamp(2.2rem,6vw,4.5rem)] font-semibold tracking-[-0.04em] text-foreground leading-[1.02] text-balance"
+          className="text-section font-semibold tracking-[-0.04em] text-foreground text-balance"
         >
-          Listos para <span className="text-accent">jugar?</span>
+          ¿Listos para <span className="text-accent">jugar?</span>
         </h2>
         <p className="mt-5 text-body-lg text-muted-foreground max-w-md">
-          Arma tu set, sumate a un curso o escribinos. La cancha es donde vos quieras.
+          Arma tu set, súmate a un curso o escríbenos. La cancha es donde tú quieras.
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

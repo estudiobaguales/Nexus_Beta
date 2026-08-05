@@ -38,7 +38,7 @@ const slides: Slide[] = [
       { text: "Conecta." },
     ],
     subheadline:
-      "Equipamiento profesional, cursos y torneos de roundnet. Unete a la comunidad deportiva mas innovadora del pais.",
+      "Equipamiento profesional, cursos y torneos de roundnet. Únete a la comunidad deportiva más innovadora del país.",
     cta: { label: "Conocer Nexus", href: "#nosotros" },
   },
   {
@@ -47,20 +47,20 @@ const slides: Slide[] = [
     image: "/images/prod-roundnet.png",
     imageAlt: "Set de Roundnet Nexus Pro",
     eyebrow: "Tienda",
-    title: [{ text: "Equipamiento " }, { text: "de elite.", accent: true }],
+    title: [{ text: "Equipamiento " }, { text: "de élite.", accent: true }],
     // El monto sale de lib/site-config.ts, igual que la banda de envio gratis.
-    subheadline: `Envio gratis en pedidos sobre ${formatCLP(FREE_SHIPPING_THRESHOLD)}. Despacho a todo Chile en ${SHIPPING_ETA}.`,
+    subheadline: `Envío gratis en pedidos sobre ${formatCLP(FREE_SHIPPING_THRESHOLD)}. Despacho a todo Chile en ${SHIPPING_ETA}.`,
     cta: { label: "Comprar ahora", href: "/productos" },
   },
   {
     id: "nexuniversity",
     variant: "photo",
     image: "/images/courses.jpg",
-    imageAlt: "Instructor ensenando roundnet",
+    imageAlt: "Instructor enseñando roundnet a un grupo de alumnos",
     eyebrow: "Academia",
     title: [{ text: "Aprende con" }, { text: "", break: true }, { text: "los mejores.", accent: true }],
     subheadline:
-      "Instructores certificados, grupos reducidos y un metodo progresivo disenado para cada nivel. Del primer saque al torneo nacional.",
+      "Instructores certificados, grupos reducidos y un método progresivo diseñado para cada nivel. Del primer saque al torneo nacional.",
     cta: { label: "Ver cursos", href: "/nexuniversity" },
   },
 ]

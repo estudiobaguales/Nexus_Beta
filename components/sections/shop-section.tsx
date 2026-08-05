@@ -33,9 +33,9 @@ export function ShopSection({ collections }: { collections: ShopifyCollection[] 
           <Eyebrow className="mb-3">Tienda</Eyebrow>
           <h2
             id="tienda-titulo"
-            className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]"
+            className="text-section font-semibold tracking-[-0.035em] text-foreground"
           >
-            Equipamiento <span className="text-muted-foreground">de elite.</span>
+            Equipamiento <span className="text-muted-foreground">de élite.</span>
           </h2>
         </motion.div>
         <motion.div
@@ -45,7 +45,7 @@ export function ShopSection({ collections }: { collections: ShopifyCollection[] 
         >
           <Button asChild variant="outline" size="md" className="group font-medium">
             <Link href="/productos">
-              Ver catalogo completo
+              Ver catálogo completo
               <ArrowRight
                 className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
                 strokeWidth={1.5}

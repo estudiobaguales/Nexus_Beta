@@ -40,9 +40,9 @@ export function FeaturedPosts() {
           <Eyebrow className="mb-3">Blog</Eyebrow>
           <h2
             id="blog-titulo"
-            className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]"
+            className="text-section font-semibold tracking-[-0.035em] text-foreground"
           >
-            Guias y <span className="text-muted-foreground">novedades.</span>
+            Guías y <span className="text-muted-foreground">novedades.</span>
           </h2>
         </motion.div>
         <motion.div

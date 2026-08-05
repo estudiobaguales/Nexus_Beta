@@ -17,10 +17,10 @@ const FOUNDED_YEAR = 2025
  * oficio viejo" sin depender de un parrafo largo.
  */
 const craft = [
-  { icon: CalendarDays, label: "Organizacion de eventos deportivos" },
+  { icon: CalendarDays, label: "Organización de eventos deportivos" },
   { icon: Megaphone, label: "Activaciones de marca" },
   { icon: GraduationCap, label: "Cursos y capacitaciones" },
-  { icon: Users, label: "Formacion de comunidad" },
+  { icon: Users, label: "Formación de comunidad" },
 ]
 
 /**
@@ -85,18 +85,18 @@ export function AboutSection() {
             <Eyebrow className="mb-4">Nuestra historia</Eyebrow>
             <h2
               id="historia-titulo"
-              className="text-[clamp(2.2rem,5vw,3.8rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.02] text-balance"
+              className="text-section font-semibold tracking-[-0.035em] text-foreground text-balance"
             >
               Marca nueva,
               <br />
               <span className="text-muted-foreground">oficio viejo.</span>
             </h2>
             <p className="mt-6 text-body-lg text-muted-foreground max-w-md">
-              Nexus nace en {FOUNDED_YEAR}. El equipo que esta detras, no: llevamos anos
+              Nexus nace en {FOUNDED_YEAR}. El equipo que está detrás, no: llevamos años
               produciendo eventos deportivos, activaciones, cursos y capacitaciones en todo Chile.
             </p>
             <p className="mt-4 text-body text-muted-foreground max-w-md">
-              Lo que cambia es el nombre y el foco. Lo que no cambia es como trabajamos: la cancha
+              Lo que cambia es el nombre y el foco. Lo que no cambia es cómo trabajamos: la cancha
               armada a tiempo, la gente jugando y las ganas de volver el fin de semana siguiente.
             </p>
           </motion.div>
@@ -186,7 +186,7 @@ export function AboutSection() {
             transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="absolute -bottom-6 -left-6 bg-background rounded-xl p-5 shadow-xl shadow-foreground/5 border border-border hidden lg:block"
           >
-            <p className="text-[32px] font-semibold tracking-[-0.03em] text-accent leading-none tabular-nums">
+            <p className="text-3xl font-semibold tracking-[-0.03em] text-accent leading-none tabular-nums">
               {FOUNDED_YEAR}
             </p>
             <p className="text-eyebrow text-muted-foreground mt-1">Nace Nexus, en Chile</p>

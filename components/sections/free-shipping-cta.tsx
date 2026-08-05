@@ -48,12 +48,12 @@ export function FreeShippingCta() {
             <div>
               <h2
                 id="envio-gratis-titulo"
-                className="text-[clamp(1.75rem,4vw,3rem)] font-semibold tracking-[-0.035em] leading-[1.05] text-balance"
+                className="text-section font-semibold tracking-[-0.035em] text-balance"
               >
-                Envio gratis sobre {formatCLP(FREE_SHIPPING_THRESHOLD)}
+                Envío gratis sobre {formatCLP(FREE_SHIPPING_THRESHOLD)}
               </h2>
               <p className="mt-2 text-body text-accent-foreground/70 max-w-md">
-                A todo Chile, en {SHIPPING_ETA}. Sin codigos ni condiciones raras.
+                A todo Chile, en {SHIPPING_ETA}. Sin códigos ni condiciones raras.
               </p>
             </div>
           </div>

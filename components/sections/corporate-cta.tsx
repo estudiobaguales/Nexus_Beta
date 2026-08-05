@@ -17,12 +17,12 @@ const offers = [
   {
     icon: Trophy,
     title: "Torneos de empresa",
-    text: "Organizamos la jornada completa: formato, arbitraje, equipamiento y produccion.",
+    text: "Organizamos la jornada completa: formato, arbitraje, equipamiento y producción.",
   },
   {
     icon: GraduationCap,
     title: "Capacitaciones",
-    text: "Talleres y clinicas para escuelas y colegios, dictadas por instructores certificados.",
+    text: "Talleres y clínicas para escuelas y colegios, dictadas por instructores certificados.",
   },
 ]
 
@@ -43,9 +43,9 @@ export function CorporateCta() {
           <Eyebrow className="mb-3">Corporativo</Eyebrow>
           <h2
             id="corporativo-titulo"
-            className="text-[clamp(1.9rem,4vw,3.2rem)] font-semibold tracking-[-0.035em] text-background leading-[1.05] text-balance"
+            className="text-section font-semibold tracking-[-0.035em] text-background text-balance"
           >
-            Tambien jugamos <span className="text-background/45">en tu institucion.</span>
+            También jugamos <span className="text-background/45">en tu institución.</span>
           </h2>
           <p className="mt-5 text-body text-background/55 max-w-md">
             Trabajamos con empresas, municipios, escuelas y colegios: desde una compra por volumen
