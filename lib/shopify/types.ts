@@ -14,6 +14,15 @@ export type ProductVariant = {
   /** SKU real de Shopify. Puede venir null si el producto no lo define. */
   sku?: string | null
   availableForSale: boolean
+  /**
+   * Stock real de la variante.
+   *
+   * Shopify solo lo entrega si el producto tiene inventario con seguimiento y el
+   * token tiene el scope unauthenticated_read_product_inventory. Si no, viene
+   * null o undefined y el consumidor no debe asumir un tope.
+   * Hoy lo pide getProduct (el PDP); las queries de listado no lo necesitan.
+   */
+  quantityAvailable?: number | null
   selectedOptions: SelectedOption[]
   price: Money
 }

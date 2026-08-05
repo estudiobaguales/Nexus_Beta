@@ -13,6 +13,20 @@ export type BlogPost = {
   readTime: string
   featured: boolean
   slug: string
+  /**
+   * Handles de Shopify de los productos que trata el articulo. Es el primer
+   * escalon de getRelatedPosts.
+   *
+   * PLACEHOLDER: los handles de abajo son los del catalogo de respaldo
+   * (lib/fallback-products.ts), no estan confirmados contra la tienda real.
+   * Verificar en Shopify antes de publicar.
+   */
+  productHandles?: string[]
+  /**
+   * Deporte del articulo. Se compara contra `productType` de Shopify, que hoy usa
+   * "Spikeball" para roundnet. Sin valor, el articulo cuenta como de marca.
+   */
+  sport?: string
 }
 
 export const blogPosts: BlogPost[] = [
@@ -27,6 +41,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     featured: true,
     slug: "como-elegir-primer-set",
+    productHandles: ["set-de-roundnet-nexus-pro"],
+    sport: "Spikeball",
   },
   {
     id: 2,
@@ -39,6 +55,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min",
     featured: false,
     slug: "ejercicios-mejorar-spike",
+    sport: "Spikeball",
   },
   {
     id: 3,
@@ -51,6 +68,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "3 min",
     featured: false,
     slug: "guia-armado-rapido",
+    productHandles: ["set-de-roundnet-nexus-pro"],
+    sport: "Spikeball",
   },
   {
     id: 4,
@@ -63,6 +82,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     featured: false,
     slug: "resultados-nexus-open",
+    sport: "Spikeball",
   },
   {
     id: 5,
@@ -87,6 +107,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     featured: false,
     slug: "review-nexus-tournament",
+    productHandles: ["set-de-roundnet-nexus-pro"],
+    sport: "Spikeball",
   },
 ]
 
@@ -110,4 +132,56 @@ export function getFeaturedPost(): BlogPost | undefined {
 
 export function getAllBlogSlugs(): string[] {
   return blogPosts.map((p) => p.slug)
+}
+
+/** Destacados primero, y dentro de cada grupo el mas reciente. */
+function byRelevance(a: BlogPost, b: BlogPost): number {
+  if (a.featured !== b.featured) return a.featured ? -1 : 1
+  return b.dateISO.localeCompare(a.dateISO)
+}
+
+/**
+ * Articulos relacionados a un producto, en cascada:
+ *
+ *   1. articulos etiquetados con ese producto (`productHandles`)
+ *   2. articulos del deporte correspondiente (`sport` vs productType de Shopify)
+ *   3. articulos de marca (los que no declaran deporte)
+ *
+ * Cada escalon solo completa lo que falta para llegar a `limit`, sin repetir. Si
+ * no hay ningun articulo devuelve [], y el bloque que la consume no se renderiza:
+ * nunca queda un bloque vacio ni roto.
+ */
+export function getRelatedPosts({
+  productHandle,
+  sport,
+  limit = 3,
+}: {
+  productHandle?: string
+  sport?: string | null
+  limit?: number
+}): BlogPost[] {
+  const picked: BlogPost[] = []
+  const seen = new Set<string>()
+
+  const take = (candidates: BlogPost[]) => {
+    for (const post of candidates.sort(byRelevance)) {
+      if (picked.length >= limit) return
+      if (seen.has(post.slug)) continue
+      seen.add(post.slug)
+      picked.push(post)
+    }
+  }
+
+  if (productHandle) {
+    take(blogPosts.filter((p) => p.productHandles?.includes(productHandle)))
+  }
+
+  if (sport) {
+    const normalized = sport.trim().toLowerCase()
+    take(blogPosts.filter((p) => p.sport?.trim().toLowerCase() === normalized))
+  }
+
+  take(blogPosts.filter((p) => !p.sport))
+
+  return picked
 }

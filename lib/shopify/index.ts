@@ -193,6 +193,7 @@ export async function getProduct(
         description
         descriptionHtml
         handle
+        availableForSale
         productType
         category {
           id
@@ -235,6 +236,7 @@ export async function getProduct(
                 currencyCode
               }
               availableForSale
+              quantityAvailable
               selectedOptions {
                 name
                 value

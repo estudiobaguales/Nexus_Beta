@@ -11,7 +11,8 @@ type CartContextType = {
   isLoading: boolean
   openCart: () => void
   closeCart: () => void
-  addItem: (variant: ProductVariant, product: Product) => Promise<void>
+  /** `quantity` es opcional y por defecto 1: las cards del catalogo siguen llamando addItem(variant, product). */
+  addItem: (variant: ProductVariant, product: Product, quantity?: number) => Promise<void>
   updateItem: (lineId: string, quantity: number) => Promise<void>
   removeItem: (lineId: string) => Promise<void>
   totalQuantity: number
@@ -51,12 +52,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [cart])
 
   const addItem = useCallback(
-    async (variant: ProductVariant, _product: Product) => {
+    async (variant: ProductVariant, _product: Product, quantity = 1) => {
       setIsLoading(true)
       try {
         const currentCart = await ensureCart()
         const updatedCart = await addCartLines(currentCart.id, [
-          { merchandiseId: variant.id, quantity: 1 },
+          // Entero y >= 1: el input de cantidad del PDP acepta escritura libre.
+          { merchandiseId: variant.id, quantity: Math.max(1, Math.floor(quantity)) },
         ])
         setCart(updatedCart)
         setIsOpen(true)

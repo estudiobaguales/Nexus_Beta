@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getProduct, getProducts } from "@/lib/shopify"
+import type { Product } from "@/lib/shopify/types"
 import { getFirstAvailableVariant } from "@/lib/shopify/utils"
 import { absoluteUrl, SITE_NAME } from "@/lib/site-config"
 import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
@@ -44,6 +45,28 @@ function oneYearFromNow(): string {
   return date.toISOString().split("T")[0]
 }
 
+const RELATED_PRODUCTS_LIMIT = 4
+
+/**
+ * Productos relacionados: primero los del mismo productType, y si no alcanzan se
+ * completa con el resto del catalogo para no dejar una fila coja.
+ * Si Shopify falla, devuelve [] y el bloque no se renderiza.
+ */
+async function getRelatedProducts(current: Product): Promise<Product[]> {
+  const { products } = await getProducts({ first: 50 }).catch(() => ({
+    products: [] as Product[],
+    pageInfo: { hasNextPage: false, endCursor: null },
+  }))
+
+  const others = products.filter((p) => p.handle !== current.handle)
+  const sameType = current.productType
+    ? others.filter((p) => p.productType === current.productType)
+    : []
+  const rest = others.filter((p) => !sameType.includes(p))
+
+  return [...sameType, ...rest].slice(0, RELATED_PRODUCTS_LIMIT)
+}
+
 export default async function ProductDetailPage({
   params,
 }: {
@@ -52,6 +75,8 @@ export default async function ProductDetailPage({
   const { handle } = await params
   const product = await getProduct(handle).catch(() => null)
   if (!product) notFound()
+
+  const relatedProducts = await getRelatedProducts(product)
 
   const price = product.priceRange.minVariantPrice
   const image = product.images.edges[0]?.node
@@ -94,7 +119,7 @@ export default async function ProductDetailPage({
   return (
     <>
       <JsonLd data={[productJsonLd, breadcrumbJsonLd(crumbs)]} />
-      <ProductDetailPageClient product={product} />
+      <ProductDetailPageClient product={product} relatedProducts={relatedProducts} />
     </>
   )
 }
