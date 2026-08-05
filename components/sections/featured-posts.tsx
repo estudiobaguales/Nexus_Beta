@@ -6,10 +6,9 @@ import Link from "next/link"
 import { motion, useInView } from "motion/react"
 import { Clock, ArrowRight, ArrowUpRight } from "lucide-react"
 import { blogPosts, type BlogPost } from "@/lib/blog-data"
-import { Section } from "@/components/ui/section"
+import { Section, type SectionTone } from "@/components/ui/section"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Button } from "@/components/ui/button"
-import type { SectionTone } from "@/components/ui/section"
 
 /**
  * Bloque 7 de la home: 3 articulos destacados.
