@@ -94,6 +94,20 @@ export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
 
+/**
+ * Articulo destacado unico, para bloques que muestran uno solo.
+ *
+ * No hay metrica de lecturas en el proyecto, asi que "destacado" es el flag
+ * manual `featured`. Si nadie lo marco, cae al mas reciente por dateISO en vez
+ * de devolver undefined: el bloque que lo consume no debe quedar vacio.
+ */
+export function getFeaturedPost(): BlogPost | undefined {
+  return (
+    blogPosts.find((p) => p.featured) ??
+    [...blogPosts].sort((a, b) => b.dateISO.localeCompare(a.dateISO))[0]
+  )
+}
+
 export function getAllBlogSlugs(): string[] {
   return blogPosts.map((p) => p.slug)
 }

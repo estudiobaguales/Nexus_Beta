@@ -17,6 +17,7 @@ import {
   type CatalogLayout,
 } from "@/components/ui/product-toolbar"
 import { ProductCard } from "@/components/product-card"
+import { ShopBlogCta } from "@/components/sections/shop-blog-cta"
 
 function ProductsContent({ products }: { products: Product[] }) {
   const [category, setCategory] = useState<string>("Todos")
@@ -103,13 +104,19 @@ function ProductsContent({ products }: { products: Product[] }) {
 
         {filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
-            <p className="text-body text-muted-foreground">No se encontraron productos en esta categoria.</p>
+            <p className="text-body text-muted-foreground">
+              No hay productos en esta categoría.
+            </p>
             <Button size="sm" onClick={() => setCategory("Todos")}>
-              Ver todos
+              Ver todos los productos
             </Button>
           </div>
         )}
       </Section>
+
+      {/* Cierre de pagina. Va fuera de la <Section> de la grilla para que no
+          herede su spacing y quede claro que no es parte del catalogo. */}
+      <ShopBlogCta />
     </SiteShell>
   )
 }
