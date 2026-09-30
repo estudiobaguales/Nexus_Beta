@@ -7,6 +7,11 @@ export type Crumb = { label: string; href: string }
 type BuildMetadataInput = {
   /** Titulo SIN sufijo de marca: la plantilla de app/layout.tsx agrega " | Nexus". */
   title: string
+  /**
+   * true cuando el titulo ya trae su propia marca (p. ej. el meta title SEO de un
+   * producto en Shopify): se usa tal cual, sin la plantilla " | Nexus".
+   */
+  absoluteTitle?: boolean
   description: string
   /** Ruta absoluta del sitio, empezando con "/". Alimenta canonical y og:url. */
   path: string
@@ -27,6 +32,7 @@ type BuildMetadataInput = {
  */
 export function buildMetadata({
   title,
+  absoluteTitle = false,
   description,
   path,
   keywords,
@@ -36,10 +42,10 @@ export function buildMetadata({
 }: BuildMetadataInput): Metadata {
   // Mismo sufijo que la plantilla de <title> en app/layout.tsx, para que el titulo
   // de la pestana y el de Open Graph no digan cosas distintas.
-  const brandedTitle = `${title} | ${TITLE_SUFFIX}`
+  const brandedTitle = absoluteTitle ? title : `${title} | ${TITLE_SUFFIX}`
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     ...(keywords ? { keywords } : {}),
     alternates: { canonical: path },

@@ -44,6 +44,14 @@ export type Product = {
   title: string
   description: string
   descriptionHtml: string
+  /**
+   * Meta title/description cargados en Shopify (Admin > Producto > SEO).
+   * Solo lo pide getProduct (el PDP); vienen null si no se definieron.
+   */
+  seo?: {
+    title: string | null
+    description: string | null
+  } | null
   handle: string
   availableForSale: boolean
   productType: string | null

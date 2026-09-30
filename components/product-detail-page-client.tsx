@@ -95,9 +95,19 @@ export function ProductDetailPageClient({
             <p className="mt-4 text-xl font-semibold text-foreground tabular-nums">
               ${price.toLocaleString("es-CL")}
             </p>
-            <p className="mt-6 text-body text-muted-foreground max-w-md">
-              {product.description}
-            </p>
+            {/* descriptionHtml viene del admin de Shopify (contenido del comercio, no de
+                usuarios). Trae H2/H3 y listas, asi que se estiliza aqui con los tokens;
+                el unico H1 de la pagina sigue siendo el titulo del producto. */}
+            {product.descriptionHtml ? (
+              <div
+                className="mt-6 text-body text-muted-foreground max-w-md [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-body-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_h3]:mt-5 [&_h3]:mb-2 [&_h3]:text-body [&_h3]:font-semibold [&_h3]:text-foreground [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:font-semibold [&_strong]:text-foreground"
+                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+              />
+            ) : (
+              <p className="mt-6 text-body text-muted-foreground max-w-md">
+                {product.description}
+              </p>
+            )}
 
             {availableVariant ? (
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end">

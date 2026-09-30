@@ -192,6 +192,10 @@ export async function getProduct(
         title
         description
         descriptionHtml
+        seo {
+          title
+          description
+        }
         handle
         availableForSale
         productType

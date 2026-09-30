@@ -30,9 +30,15 @@ export async function generateMetadata({
 
   const image = product.images.edges[0]?.node
 
+  // El meta title/description SEO de Shopify manda; si no esta cargado se cae al
+  // titulo del producto (con la plantilla de marca) y al inicio de la descripcion.
+  const seoTitle = product.seo?.title?.trim()
+  const seoDescription = product.seo?.description?.trim()
+
   return buildMetadata({
-    title: product.title,
-    description: product.description.slice(0, 160),
+    title: seoTitle || product.title,
+    absoluteTitle: Boolean(seoTitle),
+    description: seoDescription || product.description.slice(0, 160),
     path: `/productos/${product.handle}`,
     ...(image ? { image: image.url, imageAlt: image.altText || product.title } : {}),
   })
