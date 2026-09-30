@@ -1,0 +1,27 @@
+{
+  "fecha": "2026-09-29",
+  "tienda": "fz54ns-fg.myshopify.com",
+  "nota": "Estado previo de los productos a modificar. Los 8 productos restantes no existen y se crearán nuevos.",
+  "productos": [
+    {
+      "id": "gid://shopify/Product/8701687201927",
+      "handle": "atlas-balls",
+      "title": "Atlas Balls",
+      "status": "ACTIVE",
+      "productType": "Repuesto",
+      "vendor": "Spikeball",
+      "tags": ["linea:spikeball", "tipo:repuesto"],
+      "descriptionHtml": "&lt;p&gt;Pelotas oficiales de repuesto Atlas, disponibles en distintos tamaños de pack.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;PRECIO A CONFIRMAR.&lt;/strong&gt; Producto cargado como borrador — descripción oficial e imagen pendientes.&lt;/p&gt;",
+      "seo": { "title": null, "description": null },
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/45365812658311", "title": "Pack x2", "sku": null, "price": "100" },
+        { "id": "gid://shopify/ProductVariant/45365812691079", "title": "Pack x10", "sku": null, "price": "100" },
+        { "id": "gid://shopify/ProductVariant/45365812723847", "title": "Pack x20", "sku": null, "price": "100" }
+      ],
+      "media": [
+        { "id": "gid://shopify/MediaImage/36755804553351", "alt": "" },
+        { "id": "gid://shopify/MediaImage/36755804586119", "alt": "" }
+      ]
+    }
+  ]
+}
