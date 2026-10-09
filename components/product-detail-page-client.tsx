@@ -10,6 +10,7 @@ import { Section } from "@/components/ui/section"
 import { Button } from "@/components/ui/button"
 import { QuantityInput } from "@/components/ui/quantity-input"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { ProductInfo } from "@/components/sections/product-info"
 import { RelatedArticles } from "@/components/sections/related-articles"
 import { RelatedProducts } from "@/components/sections/related-products"
 import { getFirstAvailableVariant } from "@/lib/shopify/utils"
@@ -92,13 +93,24 @@ export function ProductDetailPageClient({
             <h1 className="text-subsection font-semibold tracking-[-0.03em] text-foreground">
               {product.title}
             </h1>
+            {product.info?.shortDescription && (
+              <p
+                lang="es"
+                className="mt-4 max-w-[65ch] text-body text-muted-foreground text-justify hyphens-auto"
+              >
+                {product.info.shortDescription}
+              </p>
+            )}
             <p className="mt-4 text-xl font-semibold text-foreground tabular-nums">
               ${price.toLocaleString("es-CL")}
             </p>
-            {/* descriptionHtml viene del admin de Shopify (contenido del comercio, no de
+            {/* Con ficha cargada (metafields), la descripcion breve va bajo el H1 y el
+                resto en <ProductInfo>; la descripcion nativa queda solo como respaldo
+                para los productos que todavia no tienen ficha.
+                descriptionHtml viene del admin de Shopify (contenido del comercio, no de
                 usuarios). Trae H2/H3 y listas, asi que se estiliza aqui con los tokens;
                 el unico H1 de la pagina sigue siendo el titulo del producto. */}
-            {product.descriptionHtml ? (
+            {product.info ? null : product.descriptionHtml ? (
               <div
                 className="mt-6 text-body text-muted-foreground max-w-md [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-body-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_h3]:mt-5 [&_h3]:mb-2 [&_h3]:text-body [&_h3]:font-semibold [&_h3]:text-foreground [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:font-semibold [&_strong]:text-foreground"
                 dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
@@ -145,6 +157,7 @@ export function ProductDetailPageClient({
         </div>
       </Section>
 
+      <ProductInfo info={product.info} />
       <RelatedArticles productHandle={product.handle} productType={product.productType} />
       <RelatedProducts products={relatedProducts} />
     </SiteShell>

@@ -149,6 +149,27 @@
   }
 }
 
+/* Apertura/cierre suave de los <details> nativos (ficha de producto).
+   Mejora progresiva: donde el navegador no soporta interpolate-size, o el usuario
+   pide menos movimiento, el acordeon abre y cierra igual, solo que sin transicion. */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    .details-animated {
+      interpolate-size: allow-keywords;
+    }
+    .details-animated::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        content-visibility 0.3s allow-discrete;
+    }
+    .details-animated[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

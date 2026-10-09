@@ -8,6 +8,11 @@ import {
 
 import { parseShopifyDomain } from './parse-shopify-domain'
 import { DEFAULT_PAGE_SIZE, DEFAULT_SORT_KEY } from './constants'
+import {
+  PRODUCT_INFO_KEYS,
+  PRODUCT_INFO_NAMESPACE,
+  parseProductInfo,
+} from './product-info'
 
 const rawStoreDomain =
   process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || process.env.SHOPIFY_STORE_DOMAIN
@@ -196,6 +201,12 @@ export async function getProduct(
           title
           description
         }
+        metafields(identifiers: [${PRODUCT_INFO_KEYS.map(
+          (key) => `{ namespace: "${PRODUCT_INFO_NAMESPACE}", key: "${key}" }`,
+        ).join(', ')}]) {
+          key
+          value
+        }
         handle
         availableForSale
         productType
@@ -259,7 +270,10 @@ export async function getProduct(
     variables: { handle },
   })
 
-  return data.product ? mapProductNode(data.product) : null
+  if (!data.product) return null
+
+  const { metafields, ...node } = data.product
+  return { ...mapProductNode(node), info: parseProductInfo(metafields) }
 }
 
 // Get collections

@@ -39,6 +39,31 @@ export type ProductOption = {
   values: string[]
 }
 
+export type ProductInfoItem = {
+  title: string | null
+  text: string
+}
+
+export type ProductInfoGroup = {
+  title: string | null
+  items: string[]
+}
+
+export type PackageItem = {
+  quantity: string | null
+  label: string
+}
+
+/** Ficha estructurada del PDP. Sale de metafields; ver lib/shopify/product-info.ts. */
+export type ProductInfo = {
+  shortDescription: string | null
+  features: ProductInfoItem[]
+  highlights: ProductInfoItem[]
+  packageContents: PackageItem[]
+  howToPlay: ProductInfoGroup[]
+  techSpecs: ProductInfoItem[]
+}
+
 export type Product = {
   id: string
   title: string
@@ -52,6 +77,8 @@ export type Product = {
     title: string | null
     description: string | null
   } | null
+  /** Solo lo pide getProduct (el PDP). null si el producto no tiene ficha cargada. */
+  info?: ProductInfo | null
   handle: string
   availableForSale: boolean
   productType: string | null
