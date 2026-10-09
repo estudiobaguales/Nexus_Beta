@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-10-08",
+  "tienda": "fz54ns-fg.myshopify.com",
+  "nota": "descriptionHtml previo a quitar las notas internas (nota técnica y requisitos de referencia del Frisbee; variante por confirmar de Pelotas Spikeball). Solo se respaldan los dos productos modificados.",
+  "productos": [
+    {
+      "id": "gid://shopify/Product/8853536833671",
+      "handle": "frisbee-recreativo-playa-jardin",
+      "title": "Frisbee Recreativo para Playa y Jardín",
+      "descriptionHtml": "<p>Un clásico infaltable en cualquier salida al aire libre. El Frisbee NEXUS cuenta con un diseño ergonómico de perfil redondo tradicional que garantiza un vuelo estable y trayectorias limpias, ideal para compartir en la playa, parques o eventos con la comunidad.</p>\n\n<p><strong>Nota técnica:</strong> A la espera de la recepción de muestras para validación final de estándar oficial Ultimate de 175 g / 27.3-27.5 cm.</p>\n\n<h2>Requisitos Técnicos del Disco Oficial (Referencia)</h2>\n<ul>\n  <li>\n<strong>Peso estricto:</strong> Debe pesar exactamente 175 gramos.</li>\n  <li>\n<strong>Diámetro:</strong> Debe medir exactamente entre 27.3 y 27.5 centímetros.</li>\n  <li>\n<strong>Material:</strong> Plástico rígido/polímeros flexibles de alta calidad.</li>\n  <li>\n<strong>Diseño y agarre:</strong> Ranuras concéntricas estabilizadoras.</li>\n  <li>\n<strong>Color:</strong> Blanco (oficial de competencia).</li>\n</ul>\n\n<h2>Características Clave</h2>\n<ul>\n  <li>\n<strong>Vuelo Estable:</strong> Borde optimizado para lanzamientos precisos y fácil agarre al aire (catch).</li>\n  <li>\n<strong>Plástico Flexible y Resistente:</strong> Soporta caídas y uso continuo sin perder su forma original.</li>\n  <li>\n<strong>Diversión Multiedad:</strong> Apto para niños, adultos y actividades al aire libre.</li>\n  <li><strong>Despacho disponible a todo Chile.</strong></li>\n</ul>"
+    },
+    {
+      "id": "gid://shopify/Product/8853536800903",
+      "handle": "pelotas-spikeball-pack-repuesto",
+      "title": "Pelotas Spikeball – Pack de Repuesto",
+      "descriptionHtml": "<p>Mantén tu set de Roundnet siempre listo para el partido. Las Pelotas Spikeball son los repuestos oficiales diseñados con la textura de agarre ideal para garantizar la máxima precisión en pases y remates. (Por confirmar variante: Regular / Rally Ball).</p>\n\n<h2>Características Clave</h2>\n<ul>\n  <li>\n<strong>Medida Estándar Oficial:</strong> Tamaño estándar para competencias y sets oficiales.</li>\n  <li>\n<strong>Textura con Grip:</strong> Superficie diseñada para un mejor agarre con la mano y mayor tracción al rebotar en la red.</li>\n  <li>\n<strong>Válvula Regulable:</strong> Inflado ajustable según las condiciones del terreno de juego.</li>\n  <li><strong>Despacho disponible a todo Chile.</strong></li>\n</ul>"
+    }
+  ]
+}

@@ -85,7 +85,7 @@ export default async function ProductDetailPage({
   const relatedProducts = await getRelatedProducts(product)
 
   const price = product.priceRange.minVariantPrice
-  const image = product.images.edges[0]?.node
+  const images = product.images.edges.map((edge) => edge.node)
   const url = absoluteUrl(`/productos/${product.handle}`)
 
   // Antes se usaba product.id, que es el GID crudo de Shopify
@@ -103,11 +103,12 @@ export default async function ProductDetailPage({
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.title,
-    description: product.description,
-    image: image ? [absoluteUrl(image.url)] : undefined,
+    // La descripcion breve de la ficha manda; sin ficha, la descripcion nativa.
+    description: product.info?.shortDescription || product.description,
+    image: images.length ? images.map((image) => absoluteUrl(image.url)) : undefined,
     sku,
     ...(product.productType ? { category: product.productType } : {}),
-    brand: { "@type": "Brand", name: SITE_NAME },
+    brand: { "@type": "Brand", name: "NEXUS" },
     offers: {
       "@type": "Offer",
       priceCurrency: price.currencyCode,
