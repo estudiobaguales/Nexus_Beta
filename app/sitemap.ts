@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next"
-import { SITE_URL } from "@/lib/site-config"
+import { SITE_URL, NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 import { blogPosts } from "@/lib/blog-data"
 import { getProducts, getCollections } from "@/lib/shopify"
 
-const staticRoutes = ["", "/spikeball", "/nexuniversity", "/corporativo", "/contacto", "/blog", "/productos"]
+const staticRoutes = [
+  "",
+  "/spikeball",
+  ...(NEXUNIVERSITY_ENABLED ? ["/nexuniversity"] : []),
+  "/corporativo",
+  "/contacto",
+  "/blog",
+  "/productos",
+]
 
 // El sitemap consulta Shopify: sin esto se regenera en cada request.
 export const revalidate = 3600

@@ -34,8 +34,16 @@ export const SOCIAL_LINKS: string[] = []
  */
 export const FREE_SHIPPING_THRESHOLD = 50000
 
-/** Plazo de despacho declarado junto al envio gratis. */
-export const SHIPPING_ETA = "3 a 5 dias habiles"
+/** Plazo de despacho. */
+export const SHIPPING_ETA = "3 a 5 días hábiles"
+
+/**
+ * Nexuniversity (cursos) no se habilita en el lanzamiento.
+ * Con `false`: la ruta /nexuniversity responde 404 y sale del sitemap, y se ocultan
+ * los links del menu, el footer, el slide de cursos del hero y los botones que
+ * apuntan a ella. Para habilitarla basta con pasar esto a `true`.
+ */
+export const NEXUNIVERSITY_ENABLED = false
 
 export function formatCLP(amount: number): string {
   return `$${amount.toLocaleString("es-CL")}`
