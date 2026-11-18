@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import { SiteShell } from "@/components/site-shell"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 
 /* ---------- Hero ---------- */
 function Hero() {
@@ -40,7 +41,7 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-eyebrow tracking-[0.4em] uppercase text-accent mb-5 font-medium"
           >
-            El deporte que crece mas rapido del mundo
+            El deporte del futuro
           </motion.p>
           {/* El H1 era la palabra suelta "Spikeball" mientras el <title> apunta a
               "Spikeball (Roundnet): que es, reglas y como se juega". La segunda linea
@@ -55,7 +56,7 @@ function Hero() {
               Spikeball
             </span>
             <span className="block mt-4 text-[clamp(1.05rem,2.4vw,1.6rem)] font-medium tracking-[-0.02em] text-background/70 leading-tight">
-              Roundnet: que es, reglas y como se juega
+              Roundnet: qué es, reglas y cómo se juega
             </span>
           </motion.h1>
           <motion.p
@@ -64,8 +65,8 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-6 text-body-lg md:text-[18px] text-background/60 max-w-xl leading-relaxed"
           >
-            Tambien conocido como <span className="text-background font-medium">roundnet</span>. Dos contra dos,
-            una red circular y 360 grados de pura adrenalina. Sin limites de cancha.
+            También conocido como <span className="text-background font-medium">roundnet</span>. Dos contra dos,
+            una red circular y 360 grados de pura adrenalina. Sin límites de cancha.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -77,7 +78,7 @@ function Hero() {
               href="#como-jugar"
               className="group inline-flex items-center gap-2 h-12 px-8 rounded-full bg-accent text-accent-foreground text-ui font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300"
             >
-              Como se juega
+              Cómo se juega
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" strokeWidth={2} />
             </a>
             <Link
@@ -101,7 +102,7 @@ function Hero() {
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-micro tracking-[0.2em] uppercase text-background/40">Scroll</span>
+          <span className="text-micro tracking-[0.2em] uppercase text-background/40">Desliza</span>
           <div className="w-px h-8 bg-gradient-to-b from-background/40 to-transparent" />
         </motion.div>
       </motion.div>
@@ -124,7 +125,7 @@ function Intro() {
           transition={{ duration: 0.7 }}
           className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-6 font-medium"
         >
-          Que es el roundnet
+          ¿Qué es el roundnet?
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
@@ -133,7 +134,7 @@ function Intro() {
           className="text-[clamp(1.8rem,4.5vw,3.2rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.15] text-balance"
         >
           Imagina el voleibol, pero jugado alrededor de una{" "}
-          <span className="text-accent">red circular</span> tensada al nivel del suelo, sin lineas ni limites de cancha.
+          <span className="text-accent">red circular</span> tensada al nivel del suelo, un deporte 360°.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -143,7 +144,7 @@ function Intro() {
         >
           El roundnet se juega 2 contra 2. El objetivo es golpear la pelota contra la red de modo que el equipo
           rival no pueda devolverla. Cada equipo tiene hasta tres toques para preparar y ejecutar el remate, y como
-          no hay limites de campo, los jugadores se mueven libremente en 360 grados. Es rapido, explosivo y adictivo.
+          no hay límites de campo, los jugadores se mueven libremente en 360 grados. Es rápido, explosivo y adictivo.
         </motion.p>
       </div>
     </section>
@@ -153,8 +154,8 @@ function Intro() {
 /* ---------- History timeline ---------- */
 const timeline = [
   { year: "1989", title: "El origen", text: "Jeff Knurek inventa el juego en Estados Unidos, pero con el tiempo pierde popularidad." },
-  { year: "2008", title: "El renacer", text: "Chris Ruder lo redescubre y lo relanza bajo la marca Spikeball, iniciando su expansion masiva." },
-  { year: "Hoy", title: "Deporte global", text: "Regulado por la World Roundnet Federation, se juega de forma competitiva en todo el mundo." },
+  { year: "2008", title: "El renacer", text: "Chris Ruder lo redescubre y lo relanza bajo la marca Spikeball, iniciando su expansión masiva." },
+  { year: "Hoy", title: "Deporte global", text: "Regulado por la International Roundnet Federation, se juega de forma competitiva en todo el mundo." },
 ]
 
 function History() {
@@ -201,8 +202,8 @@ function History() {
 /* ---------- How to play ---------- */
 const rules = [
   { icon: Users, title: "2 contra 2", text: "Se juega en parejas. Dos equipos de dos jugadores rodean la red circular." },
-  { icon: Repeat, title: "Hasta 3 toques", text: "Cada equipo dispone de un maximo de tres toques alternos para devolver la pelota a la red." },
-  { icon: Target, title: "360 grados", text: "No hay limites de cancha. Una vez servida la pelota, los jugadores se mueven en cualquier direccion." },
+  { icon: Repeat, title: "Hasta 3 toques", text: "Cada equipo dispone de un máximo de tres toques alternos para devolver la pelota a la red." },
+  { icon: Target, title: "360 grados", text: "No hay límites de cancha. Una vez servida la pelota, los jugadores se mueven en cualquier dirección." },
   { icon: Ban, title: "Faltas", text: "Pierdes el punto si la pelota toca el suelo, golpea el aro, rebota dos veces o si obstruyes al rival." },
 ]
 
@@ -219,7 +220,7 @@ function HowToPlay() {
           transition={{ duration: 0.8 }}
           className="mb-16 max-w-xl"
         >
-          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Como se juega</p>
+          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Cómo se juega</p>
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.035em] text-foreground leading-[1.05]">
             Las reglas, en simple.
           </h2>
@@ -251,9 +252,9 @@ function HowToPlay() {
 
 /* ---------- Scoring ---------- */
 const scoring = [
-  { value: "11 / 15 / 21", label: "Puntos por set", detail: "Los partidos se juegan a 11, 15 o 21 puntos segun el formato." },
-  { value: "+2", label: "Diferencia para ganar", detail: "Debes ganar por una diferencia minima de dos puntos." },
-  { value: "360", label: "Grados de juego", detail: "Movimiento libre alrededor de la red, sin lineas." },
+  { value: "11 / 15 / 21", label: "Puntos por set", detail: "Los partidos se juegan a 11, 15 o 21 puntos según el formato." },
+  { value: "+2", label: "Diferencia para ganar", detail: "Debes ganar por una diferencia mínima de dos puntos." },
+  { value: "360", label: "Grados de juego", detail: "Movimiento libre alrededor de la red, sin líneas." },
 ]
 
 function Scoring() {
@@ -269,9 +270,9 @@ function Scoring() {
           transition={{ duration: 0.8 }}
           className="mb-16 max-w-xl"
         >
-          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Puntuacion</p>
+          <p className="text-eyebrow tracking-[0.3em] uppercase text-accent mb-4 font-medium">Puntuación</p>
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold tracking-[-0.035em] text-background leading-[1.05]">
-            Como se gana.
+            Cómo se gana.
           </h2>
         </motion.div>
 
@@ -329,7 +330,7 @@ function Equipment() {
                 se arma en segundos y puedes jugar en la playa, el parque o donde quieras.
               </p>
               <div className="mt-8 flex flex-col gap-3">
-                {["Red circular con tension ajustable", "Pelota oficial de competencia", "Portable: cabe en una mochila"].map((f, i) => (
+                {["Red circular con tensión ajustable", "Pelota oficial de competencia", "Portable: cabe en una mochila"].map((f, i) => (
                   <motion.div
                     key={f}
                     initial={{ opacity: 0, x: -16 }}
@@ -373,10 +374,10 @@ function CTA() {
         >
           <Trophy className="w-10 h-10 text-accent-foreground/80 mx-auto mb-6" strokeWidth={1.5} />
           <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-[-0.035em] text-accent-foreground leading-[1.1] text-balance max-w-2xl mx-auto">
-            Listo para tu primer punto?
+            ¿Listo para tu primer punto?
           </h2>
           <p className="mt-4 text-body text-accent-foreground/70 max-w-md mx-auto leading-relaxed">
-            Consigue tu set, unete a un curso y forma parte de la comunidad de roundnet mas grande de Chile.
+            Consigue tu set, únete a un curso y forma parte de la comunidad de roundnet más grande de Chile.
           </p>
           <div className="mt-9 flex flex-wrap gap-3 justify-center">
             <Link
@@ -386,12 +387,15 @@ function CTA() {
               Comprar un set
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
-            <Link
-              href="/nexuniversity"
-              className="inline-flex items-center h-12 px-8 rounded-full border border-accent-foreground/30 text-accent-foreground text-ui font-medium hover:bg-accent-foreground/10 transition-all duration-300"
-            >
-              Tomar un curso
-            </Link>
+            {/* Apunta a Nexuniversity: oculto mientras la seccion este deshabilitada. */}
+            {NEXUNIVERSITY_ENABLED && (
+              <Link
+                href="/nexuniversity"
+                className="inline-flex items-center h-12 px-8 rounded-full border border-accent-foreground/30 text-accent-foreground text-ui font-medium hover:bg-accent-foreground/10 transition-all duration-300"
+              >
+                Tomar un curso
+              </Link>
+            )}
           </div>
         </motion.div>
       </div>
