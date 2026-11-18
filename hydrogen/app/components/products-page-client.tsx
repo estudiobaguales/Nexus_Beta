@@ -50,7 +50,7 @@ function ProductsContent({ products }: { products: Product[] }) {
   }, [displayProducts, category, sort])
 
   return (
-    <SiteShell>
+    <SiteShell overHero>
       <PageHero
         crumbs={[
           { label: "Inicio", href: "/" },
@@ -59,6 +59,11 @@ function ProductsContent({ products }: { products: Product[] }) {
         eyebrow="Tienda"
         title="Todo para salir a jugar."
         lede="Desde el juego familiar hasta sets de competencia, todo lo que necesitas para jugar."
+        image={{
+          // Unsplash (licencia libre). Exclusiva de /productos: no reutilizar en otras paginas.
+          src: "/images/tienda-hero.jpg",
+          alt: "Canasto lleno de pelotas deportivas de colores",
+        }}
       />
 
       <Section spacing="compact">

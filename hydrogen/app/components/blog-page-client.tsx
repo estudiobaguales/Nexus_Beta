@@ -128,7 +128,7 @@ function BlogContent() {
     : rest.filter((p) => p.category === activeCategory)
 
   return (
-    <SiteShell>
+    <SiteShell overHero>
       <PageHero
         crumbs={[
           { label: "Inicio", href: "/" },
@@ -137,6 +137,11 @@ function BlogContent() {
         eyebrow="Blog"
         title="Noticias y guías."
         lede="Tips, torneos, lanzamientos y todo lo que pasa en la comunidad Nexus."
+        image={{
+          // Unsplash (licencia libre). Exclusiva de /blog: no reutilizar en otras paginas.
+          src: "/images/blog-hero.jpg",
+          alt: "Cuaderno abierto y lector electrónico sobre una roca al aire libre",
+        }}
       />
 
       {/* Featured article */}

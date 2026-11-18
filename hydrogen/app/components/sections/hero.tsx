@@ -69,10 +69,12 @@ const allSlides: Slide[] = [
 const slides = allSlides.filter((s) => s.id !== "nexuniversity" || NEXUNIVERSITY_ENABLED)
 
 const stats = [
-  { value: "500+", label: "Jugadores" },
-  { value: "15", label: "Ciudades" },
-  { value: "120+", label: "Torneos" },
+  { value: 500, suffix: "+", label: "Jugadores" },
+  { value: 15, suffix: "", label: "Ciudades" },
+  { value: 120, suffix: "+", label: "Torneos" },
 ]
+
+const COUNT_DURATION = 2000
 
 const AUTOPLAY_DELAY = 6000
 
@@ -203,12 +205,14 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Stats -- brand-wide, same on every slide */}
+                      {/* Stats -- solo en la primera diapositiva; cuentan desde 0 cada vez que se muestra */}
+                      {i === 0 && (
                       <div className="flex items-center gap-8 sm:gap-10 lg:gap-8 pb-2 border-t border-background/15 pt-6 lg:border-t-0 lg:pt-0">
                         {stats.map((stat) => (
                           <div key={stat.label} className="flex flex-col items-start lg:items-center">
                             <span className="text-xl sm:text-2xl font-semibold text-background tracking-[-0.02em] tabular-nums">
-                              {stat.value}
+                              <CountUp value={stat.value} active={isActive} instant={!!prefersReducedMotion} />
+                              {stat.suffix}
                             </span>
                             <span className="text-micro text-background/40 tracking-[0.1em] uppercase mt-0.5">
                               {stat.label}
@@ -216,6 +220,7 @@ export function Hero() {
                           </div>
                         ))}
                       </div>
+                      )}
                     </div>
                   </Container>
                 </div>
@@ -283,6 +288,30 @@ export function Hero() {
       </div>
     </motion.section>
   )
+}
+
+/** Cuenta de 0 al valor cada vez que `active` pasa a true. Con movimiento reducido muestra el valor final. */
+function CountUp({ value, active, instant }: { value: number; active: boolean; instant: boolean }) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (instant || !active) return
+    let frame = 0
+    const start = performance.now()
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / COUNT_DURATION, 1)
+      setCount(Math.round((1 - Math.pow(1 - p, 4)) * value))
+      if (p < 1) frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(frame)
+      setCount(0)
+    }
+  }, [active, instant, value])
+
+  const display = instant ? value : count
+  return <>{display.toLocaleString("es-CL")}</>
 }
 
 function SlideTitle({ slide, asHeading }: { slide: Slide; asHeading: boolean }) {

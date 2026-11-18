@@ -11,6 +11,20 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { Button } from "@/components/ui/button"
 
 /**
+ * Imagen de respaldo por categoria, para cuando la coleccion no tiene imagen en
+ * Shopify. Fotos de Unsplash (licencia libre), una por tematica. Si se carga una
+ * imagen en la coleccion desde el admin, esa tiene prioridad.
+ */
+const fallbackImages: Record<string, { src: string; alt: string }> = {
+  spikeball: { src: "/images/cat-spikeball.jpg", alt: "Dos personas jugando roundnet en la playa" },
+  linderball: { src: "/images/cat-linderball.jpg", alt: "Grupo de amigos lanzando en la playa" },
+  cornhole: { src: "/images/cat-picklenexus.jpg", alt: "Paleta de pickleball con pelotas amarillas" },
+  "caddyflip-amp-stackpop": { src: "/images/cat-accesorios.jpg", alt: "Discos voladores de colores sobre el pasto" },
+  "battle-toss": { src: "/images/cat-battle-toss.jpg", alt: "Tablero de lanzamiento con saquitos sobre el pasto" },
+  "yard-games": { src: "/images/cat-yard-games.jpg", alt: "Juegos gigantes de jardín en un patio" },
+}
+
+/**
  * Bloque 2 de la home: acceso directo a la tienda por categoria.
  *
  * Enlaza a /productos/categoria/[handle], que son rutas reales e indexables, en vez
@@ -57,41 +71,46 @@ export function ShopSection({ collections }: { collections: ShopifyCollection[] 
 
       {visible.length > 0 && (
         <ul className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-          {visible.map((collection, i) => (
-            <motion.li
-              key={collection.handle}
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Link
-                href={`/productos/categoria/${collection.handle}`}
-                className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-2xl bg-foreground"
+          {visible.map((collection, i) => {
+            const image = collection.image
+              ? { src: collection.image.url, alt: collection.image.altText || collection.title }
+              : fallbackImages[collection.handle]
+            return (
+              <motion.li
+                key={collection.handle}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
               >
-                {collection.image && (
-                  <Image
-                    src={collection.image.url}
-                    alt={collection.image.altText || collection.title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 400px"
-                    className="object-cover opacity-80 transition-transform duration-700 ease-out group-hover:scale-105"
+                <Link
+                  href={`/productos/categoria/${collection.handle}`}
+                  className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-2xl bg-foreground"
+                >
+                  {image && (
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 400px"
+                      className="object-cover opacity-80 transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  )}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/30 to-transparent"
                   />
-                )}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/30 to-transparent"
-                />
-                <div className="relative z-10 flex w-full items-center justify-between gap-3 p-5">
-                  <span className="text-body font-semibold text-background tracking-[-0.01em]">
-                    {collection.title}
-                  </span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background/15 text-background transition-colors group-hover:bg-background group-hover:text-foreground">
-                    <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
-                  </span>
-                </div>
-              </Link>
-            </motion.li>
-          ))}
+                  <div className="relative z-10 flex w-full items-center justify-between gap-3 p-5">
+                    <span className="text-body font-semibold text-background tracking-[-0.01em]">
+                      {collection.title}
+                    </span>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background/15 text-background transition-colors group-hover:bg-background group-hover:text-foreground">
+                      <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+                    </span>
+                  </div>
+                </Link>
+              </motion.li>
+            )
+          })}
         </ul>
       )}
     </Section>
