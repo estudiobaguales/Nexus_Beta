@@ -8,9 +8,10 @@ import { ArrowRight, CalendarDays, Megaphone, GraduationCap, Users } from "lucid
 import { Section } from "@/components/ui/section"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Button } from "@/components/ui/button"
+import { NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 
 /** Año de fundacion de la marca. El oficio del equipo es anterior: ese es el angulo. */
-const FOUNDED_YEAR = 2025
+const FOUNDED_YEAR = 2026
 
 /**
  * El oficio del equipo, previo a la marca. Es lo que sostiene el "marca nueva,
@@ -29,7 +30,7 @@ const craft = [
  * estan verificadas. Las mismas aparecen en el hero (sections/hero.tsx).
  */
 const stats = [
-  { value: 5000, suffix: "+", label: "Jugadores convocados" },
+  { value: 500, suffix: "+", label: "Jugadores convocados" },
   { value: 120, suffix: "+", label: "Torneos y eventos" },
   { value: 15, suffix: "", label: "Ciudades" },
 ]
@@ -92,8 +93,9 @@ export function AboutSection() {
               <span className="text-muted-foreground">oficio viejo.</span>
             </h2>
             <p className="mt-6 text-body-lg text-muted-foreground max-w-md">
-              Nexus nace en {FOUNDED_YEAR}. El equipo que está detrás, no: llevamos años
-              produciendo eventos deportivos, activaciones, cursos y capacitaciones en todo Chile.
+              Nexus nace en {FOUNDED_YEAR}, pero la historia empieza antes: desde 2014 traemos
+              Spikeball a Chile, armamos canchas, organizamos torneos y ayudamos a formar los clubes
+              y la federación que hoy mueven el roundnet en el país.
             </p>
             <p className="mt-4 text-body text-muted-foreground max-w-md">
               Lo que cambia es el nombre y el foco. Lo que no cambia es cómo trabajamos: la cancha
@@ -143,15 +145,18 @@ export function AboutSection() {
             transition={{ duration: 0.7, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-10 flex flex-wrap gap-3"
           >
-            <Button asChild className="group">
-              <Link href="/nexuniversity">
-                Conocer Nexuniversity
-                <ArrowRight
-                  className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                  strokeWidth={1.5}
-                />
-              </Link>
-            </Button>
+            {/* Apunta a Nexuniversity: oculto mientras la seccion este deshabilitada. */}
+            {NEXUNIVERSITY_ENABLED && (
+              <Button asChild className="group">
+                <Link href="/nexuniversity">
+                  Capacítate con Nexus
+                  <ArrowRight
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                    strokeWidth={1.5}
+                  />
+                </Link>
+              </Button>
+            )}
             <Button asChild variant="outline">
               <Link href="/contacto">Hablar con el equipo</Link>
             </Button>

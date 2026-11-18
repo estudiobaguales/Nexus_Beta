@@ -8,7 +8,7 @@ import Link from "next/link"
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_ETA, formatCLP } from "@/lib/site-config"
+import { SHIPPING_ETA, NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 import { cn } from "@/lib/utils"
 
 type TitleSegment = { text: string; accent?: boolean; break?: boolean }
@@ -24,13 +24,13 @@ type Slide = {
   cta: { label: string; href: string }
 }
 
-const slides: Slide[] = [
+const allSlides: Slide[] = [
   {
     id: "nexus",
     variant: "photo",
     image: "/images/hero-main.jpg",
     imageAlt: "Personas jugando roundnet en la playa al atardecer",
-    eyebrow: "El deporte que mueve a Chile",
+    eyebrow: "La marca que mueve a Chile",
     title: [
       { text: "Juega. " },
       { text: "Compite.", accent: true },
@@ -48,8 +48,8 @@ const slides: Slide[] = [
     imageAlt: "Set de Roundnet Nexus Pro",
     eyebrow: "Tienda",
     title: [{ text: "Equipamiento " }, { text: "de élite.", accent: true }],
-    // El monto sale de lib/site-config.ts, igual que la banda de envio gratis.
-    subheadline: `Envío gratis en pedidos sobre ${formatCLP(FREE_SHIPPING_THRESHOLD)}. Despacho a todo Chile en ${SHIPPING_ETA}.`,
+    // El plazo sale de lib/site-config.ts. No hay envio gratis: no prometerlo aca.
+    subheadline: `Envío a todo Chile en ${SHIPPING_ETA}.`,
     cta: { label: "Comprar ahora", href: "/productos" },
   },
   {
@@ -57,16 +57,19 @@ const slides: Slide[] = [
     variant: "photo",
     image: "/images/courses.jpg",
     imageAlt: "Instructor enseñando roundnet a un grupo de alumnos",
-    eyebrow: "Academia",
+    eyebrow: "Cursos",
     title: [{ text: "Aprende con" }, { text: "", break: true }, { text: "los mejores.", accent: true }],
     subheadline:
-      "Instructores certificados, grupos reducidos y un método progresivo diseñado para cada nivel. Del primer saque al torneo nacional.",
+      "Instructores certificados, cursos para profesores, entrenadores y jugadores. Para todos los niveles, de novato a experto.",
     cta: { label: "Ver cursos", href: "/nexuniversity" },
   },
 ]
 
+// El slide de cursos apunta a Nexuniversity: se oculta mientras la seccion este deshabilitada.
+const slides = allSlides.filter((s) => s.id !== "nexuniversity" || NEXUNIVERSITY_ENABLED)
+
 const stats = [
-  { value: "5K+", label: "Jugadores" },
+  { value: "500+", label: "Jugadores" },
   { value: "15", label: "Ciudades" },
   { value: "120+", label: "Torneos" },
 ]

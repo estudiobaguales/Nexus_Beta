@@ -18,7 +18,7 @@ import type { Product, ShopifyCollection } from "@/lib/shopify/types"
  *
  *   1. Hero (carrusel)            5. Carrusel de productos destacados
  *   2. Tienda (categorias)        6. CTA corporativo
- *   3. CTA envio gratis           7. Blogs destacados
+ *   3. CTA de compra              7. Blogs destacados
  *   4. Nuestra historia           8. CTA de cierre
  *
  * showFooterCta={false}: el bloque 8 ya es el "Listos para jugar?" de esta pagina,
