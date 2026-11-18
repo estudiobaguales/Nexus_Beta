@@ -20,9 +20,9 @@ import { Eyebrow } from "@/components/ui/eyebrow"
  * Dos variantes:
  *
  *   - sin `image`: la cabecera plana de siempre sobre fondo muted. Es la que usan
- *     /productos, /blog, /contacto y /productos/categoria, y no cambia.
+ *     /contacto y /productos/categoria, y no cambia.
  *   - con `image`: hero a sangre con la foto de fondo, para las paginas que tienen
- *     que entrar con presencia (Nexuniversity, Corporativo). La imagen va con
+ *     que entrar con presencia (Nexuniversity, Corporativo, Tienda, Blog). La imagen va con
  *     `priority` y `fill` dentro de un contenedor de alto fijo, asi que reserva su
  *     espacio y no mueve el layout al cargar.
  */

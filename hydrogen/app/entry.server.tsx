@@ -16,12 +16,14 @@ export default async function handleRequest(
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
     shop: {
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
+      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN || context.env.PUBLIC_STORE_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
     // Montserrat se carga desde Google Fonts (ver links() en app/root.tsx).
     styleSrc: ['https://fonts.googleapis.com'],
     fontSrc: ['https://fonts.gstatic.com'],
+    // Metricas de rendimiento que envia Hydrogen a Shopify en produccion.
+    connectSrc: ['https://otlp-http-production.shopifysvc.com'],
   });
 
   const body = await renderToReadableStream(
