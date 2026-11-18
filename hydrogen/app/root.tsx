@@ -75,7 +75,9 @@ export async function loader({context}: Route.LoaderArgs) {
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
     }),
     consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+      // Oxygen no define PUBLIC_CHECKOUT_DOMAIN para esta tienda: sin dominio de
+      // checkout propio, el checkout vive en el dominio myshopify.
+      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || env.PUBLIC_STORE_DOMAIN,
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       withPrivacyBanner: false,
       country: storefront.i18n.country,
