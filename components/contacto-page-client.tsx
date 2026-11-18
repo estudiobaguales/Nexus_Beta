@@ -8,10 +8,11 @@ import { Section } from "@/components/ui/section"
 import { Button } from "@/components/ui/button"
 import { Input, Textarea } from "@/components/ui/input"
 import { PageHero } from "@/components/ui/page-hero"
+import { INSTAGRAM_URL } from "@/lib/site-config"
 
 // Placeholder de contacto derivado del dominio del sitio (SITE_URL en lib/site-config.ts).
 // TODO: reemplazar por el email/redes reales antes de publicar.
-const CONTACT_EMAIL = "hola@nexus-sports.cl"
+const CONTACT_EMAIL = "nexussportscl@gmail.com"
 
 function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
@@ -37,16 +38,16 @@ function ContactSection() {
             </span>
             {CONTACT_EMAIL}
           </a>
-          <a href="#" className="group flex items-center gap-3 text-body-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-body-sm text-muted-foreground hover:text-foreground transition-colors">
             <span className="flex items-center justify-center w-9 h-9 rounded-full border border-border group-hover:border-foreground/20 transition-colors">
               <Instagram className="w-4 h-4" strokeWidth={1.5} />
             </span>
-            @nexus.sports
+            @nexussportscl
           </a>
         </div>
         <p className="mt-6 text-caption text-muted-foreground/70">
           Para consultas comerciales, empresas e instituciones, visita nuestra{" "}
-          <Link href="/corporativo" className="text-accent hover:underline">pagina Corporativo</Link>.
+          <Link href="/corporativo" className="text-accent hover:underline">página Corporativo</Link>.
         </p>
       </div>
 
@@ -64,7 +65,7 @@ function ContactSection() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input name="nombre" required placeholder="Nombre" aria-label="Nombre" />
             <Input name="email" type="email" required placeholder="Email" aria-label="Email" />
-            <Textarea name="mensaje" required placeholder="En que podemos ayudarte?" rows={5} aria-label="Mensaje" className="sm:col-span-2" />
+            <Textarea name="mensaje" required placeholder="¿En qué podemos ayudarte?" rows={5} aria-label="Mensaje" className="sm:col-span-2" />
             <Button type="submit" variant="accent" className="sm:col-span-2 w-fit">
               Enviar mensaje
             </Button>
@@ -85,7 +86,7 @@ export function ContactoPageClient() {
         ]}
         eyebrow="Contacto"
         title="Hablemos."
-        lede="Dudas sobre productos, pedidos o la comunidad Nexus? Escribinos y te respondemos a la brevedad."
+        lede="¿Dudas sobre productos, pedidos o la comunidad Nexus? Escríbenos y te respondemos a la brevedad."
       />
       <ContactSection />
     </SiteShell>

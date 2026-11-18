@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 import { NexuniversityPageClient } from "@/components/nexuniversity-page-client"
 import { JsonLd } from "@/components/json-ld"
 import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
@@ -18,6 +20,9 @@ export const metadata: Metadata = buildMetadata({
 })
 
 export default function NexuniversityPage() {
+  // Seccion deshabilitada en el lanzamiento: ver NEXUNIVERSITY_ENABLED en lib/site-config.ts.
+  if (!NEXUNIVERSITY_ENABLED) notFound()
+
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />

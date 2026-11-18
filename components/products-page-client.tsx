@@ -19,6 +19,9 @@ import {
 import { ProductCard } from "@/components/product-card"
 import { ShopBlogCta } from "@/components/sections/shop-blog-cta"
 
+/** Orden de los filtros de la tienda definido por el cliente (tipos de producto de Shopify). */
+const FILTER_ORDER = ["Roundnet", "Pickleball", "Ultimate Frisbee", "Accesorios", "Ropa", "Repuestos"]
+
 function ProductsContent({ products }: { products: Product[] }) {
   const [category, setCategory] = useState<string>("Todos")
   const [sort, setSort] = useState<SortOption>("featured")
@@ -27,15 +30,22 @@ function ProductsContent({ products }: { products: Product[] }) {
 
   const displayProducts = products.length > 0 ? products : fallbackProducts
 
+  // Los filtros son los "Tipo de producto" de Shopify. Los productos sin tipo ya no
+  // generan un chip "Otro" (solo aparecen en "Todos"). Los tipos definidos por el
+  // cliente salen primero y en este orden; cualquier otro tipo va al final.
   const categories = useMemo(() => {
-    const types = new Set(displayProducts.map((p) => p.productType || "Otro"))
-    return ["Todos", ...Array.from(types)]
+    const types = Array.from(new Set(displayProducts.map((p) => p.productType).filter((t): t is string => Boolean(t))))
+    const rank = (t: string) => {
+      const i = FILTER_ORDER.indexOf(t)
+      return i === -1 ? FILTER_ORDER.length : i
+    }
+    return ["Todos", ...types.sort((a, b) => rank(a) - rank(b))]
   }, [displayProducts])
 
   const filtered = useMemo(() => {
     const result = category === "Todos"
       ? displayProducts
-      : displayProducts.filter((p) => (p.productType || "Otro") === category)
+      : displayProducts.filter((p) => p.productType === category)
     return sortProducts(result, sort)
   }, [displayProducts, category, sort])
 
@@ -47,8 +57,8 @@ function ProductsContent({ products }: { products: Product[] }) {
           { label: "Tienda", href: "/productos" },
         ]}
         eyebrow="Tienda"
-        title="Equipamiento profesional."
-        lede="Desde sets de competencia hasta accesorios, todo lo que necesitas para jugar al mas alto nivel."
+        title="Todo para salir a jugar."
+        lede="Desde el juego familiar hasta sets de competencia, todo lo que necesitas para jugar."
       />
 
       <Section spacing="compact">

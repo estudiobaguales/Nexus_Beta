@@ -49,11 +49,10 @@ export function ShopBlogCta() {
             id="blog-tienda-titulo"
             className="text-subsection font-semibold tracking-[-0.03em] text-foreground text-balance"
           >
-            Conoce los deportes y las modalidades Nexus.
+            Conoce más sobre nuestros deportes.
           </h2>
           <p className="mt-3 text-body text-muted-foreground max-w-md">
-            Guías de reglas, formatos de juego y cómo elegir tu equipamiento, escritas
-            por el equipo que arma las canchas.
+            Reglamentos, formas de jugar y entrevistas a las comunidades.
           </p>
         </div>
 
@@ -113,7 +112,7 @@ export function ShopBlogCta() {
                 </p>
               )}
               <span className="flex items-center gap-1 text-eyebrow font-medium text-foreground">
-                Leer el artículo
+                Leer artículo
                 <ArrowUpRight
                   className="w-3 h-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   strokeWidth={1.5}

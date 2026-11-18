@@ -51,7 +51,7 @@ export function CartDrawer() {
                   <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center">
                     <ShoppingBag className="w-5 h-5 text-muted-foreground" strokeWidth={1.5} />
                   </div>
-                  <p className="text-ui text-muted-foreground">Tu carrito esta vacio</p>
+                  <p className="text-ui text-muted-foreground">Tu carrito está vacío</p>
                   <button
                     onClick={closeCart}
                     className="h-9 px-5 rounded-full border border-border text-caption font-medium text-foreground hover:bg-secondary transition-colors"
@@ -137,7 +137,7 @@ export function CartDrawer() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-full h-11 rounded-full bg-foreground text-background text-ui font-medium hover:opacity-80 transition-opacity"
                 >
-                  {isLoading ? "Procesando..." : "Ir al Checkout"}
+                  {isLoading ? "Procesando..." : "Ir a pagar"}
                 </a>
               </div>
             )}

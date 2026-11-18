@@ -307,7 +307,11 @@ export async function getCollections(first = 10): Promise<ShopifyCollection[]> {
     variables: { first },
   })
 
-  return data.collections.edges.map((edge) => edge.node)
+  // "frontpage" es la coleccion por defecto de Shopify ("Página de inicio"): no es
+  // una categoria real y su pagina queda vacia, asi que no se lista en el sitio.
+  return data.collections.edges
+    .map((edge) => edge.node)
+    .filter((collection) => collection.handle !== "frontpage")
 }
 
 // Get a single collection by handle (without its products)

@@ -31,7 +31,7 @@ export function FeaturedPosts({
   eyebrow = "Blog",
   title = (
     <>
-      Guías y <span className="text-muted-foreground">novedades.</span>
+      Blog <span className="text-muted-foreground">Nexus Sports</span>
     </>
   ),
   posts: postsProp,

@@ -32,9 +32,9 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "Como elegir tu primer set de roundnet",
-    excerpt: "Una guia completa para principiantes que quieren entrar al mundo del roundnet con el equipo correcto.",
-    category: "Guias",
+    title: "Cómo elegir tu primer set de roundnet",
+    excerpt: "Una guía completa para principiantes que quieren entrar al mundo del roundnet con el equipo correcto.",
+    category: "Guías",
     image: "/images/blog-1.jpg",
     date: "28 Abr 2026",
     dateISO: "2026-04-28",
@@ -47,7 +47,7 @@ export const blogPosts: BlogPost[] = [
   {
     id: 2,
     title: "5 ejercicios para mejorar tu spike",
-    excerpt: "Rutina de entrenamiento disenada por nuestros coaches para llevar tu spike al siguiente nivel.",
+    excerpt: "Rutina de entrenamiento diseñada por nuestros coaches para llevar tu spike al siguiente nivel.",
     category: "Tips",
     image: "/images/blog-2.jpg",
     date: "22 Abr 2026",
@@ -59,9 +59,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: 3,
-    title: "Guia de armado rapido: 30 segundos",
+    title: "Guía de armado rápido: 30 segundos",
     excerpt: "Aprende a armar tu set en menos de 30 segundos con estos tips de nuestros jugadores profesionales.",
-    category: "Guias",
+    category: "Guías",
     image: "/images/blog-3.jpg",
     date: "18 Abr 2026",
     dateISO: "2026-04-18",
@@ -74,7 +74,7 @@ export const blogPosts: BlogPost[] = [
   {
     id: 4,
     title: "Resultados del Nexus Open 2025",
-    excerpt: "Resumen completo del torneo mas grande del ano con mas de 64 equipos participantes.",
+    excerpt: "Resumen completo del torneo más grande del año con más de 64 equipos participantes.",
     category: "Torneos",
     image: "/images/events.jpg",
     date: "10 Abr 2026",
@@ -86,8 +86,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: 5,
-    title: "La comunidad Nexus en numeros",
-    excerpt: "De 10 jugadores a 5.000: la historia de como el roundnet se expandio por todo Chile.",
+    title: "La comunidad Nexus en números",
+    excerpt: "De 10 jugadores a 5.000: la historia de cómo el roundnet se expandió por todo Chile.",
     category: "Comunidad",
     image: "/images/about.jpg",
     date: "5 Abr 2026",
@@ -99,7 +99,7 @@ export const blogPosts: BlogPost[] = [
   {
     id: 6,
     title: "Nuevo set Nexus Tournament: review completo",
-    excerpt: "Probamos el nuevo set de grado torneo durante 3 meses. Aca nuestras impresiones honestas.",
+    excerpt: "Probamos el nuevo set de grado torneo durante 3 meses. Acá nuestras impresiones honestas.",
     category: "Producto",
     image: "/images/product-pro.jpg",
     date: "1 Abr 2026",
@@ -111,6 +111,9 @@ export const blogPosts: BlogPost[] = [
     sport: "Spikeball",
   },
 ]
+
+/** Categorias que cuentan como guia de juego para el PDP. */
+const GUIDE_CATEGORIES = ["Guías", "Tips"]
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
@@ -145,7 +148,8 @@ function byRelevance(a: BlogPost, b: BlogPost): number {
  *
  *   1. articulos etiquetados con ese producto (`productHandles`)
  *   2. articulos del deporte correspondiente (`sport` vs productType de Shopify)
- *   3. articulos de marca (los que no declaran deporte)
+ *   3. guias de juego (categorias Guías y Tips), para que el bloque "Cómo se juega"
+ *      no caiga en articulos de marca como "La comunidad Nexus en números"
  *
  * Cada escalon solo completa lo que falta para llegar a `limit`, sin repetir. Si
  * no hay ningun articulo devuelve [], y el bloque que la consume no se renderiza:
@@ -181,7 +185,7 @@ export function getRelatedPosts({
     take(blogPosts.filter((p) => p.sport?.trim().toLowerCase() === normalized))
   }
 
-  take(blogPosts.filter((p) => !p.sport))
+  take(blogPosts.filter((p) => GUIDE_CATEGORIES.includes(p.category)))
 
   return picked
 }

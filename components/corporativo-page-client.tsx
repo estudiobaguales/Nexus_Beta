@@ -32,7 +32,7 @@ const propositions = [
   {
     icon: PartyPopper,
     title: "Eventos y activaciones",
-    text: "Organizamos torneos, activaciones de marca y jornadas deportivas llave en mano para tu organización.",
+    text: "Organizamos torneos, activaciones de marca y jornadas deportivas para tu organización.",
   },
 ]
 
@@ -160,7 +160,7 @@ export function CorporativoPageClient() {
         ]}
         eyebrow="Corporativo"
         title="Nexus para instituciones y empresas."
-        lede="Compras al por mayor, cursos corporativos y torneos llave en mano. Nos encargamos de la jornada completa."
+        lede="Compras al por mayor, talleres, torneos y capacitaciones para profesores. Nos encargamos de la jornada completa."
         image={{
           // PLACEHOLDER: foto de evento reutilizada de la home. Reemplazar por una
           // imagen de una activación corporativa real antes de publicar.

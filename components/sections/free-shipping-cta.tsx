@@ -3,20 +3,17 @@
 import { useRef } from "react"
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
-import { Truck, ArrowRight } from "lucide-react"
+import { ShoppingBag, ArrowRight } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_ETA, formatCLP } from "@/lib/site-config"
+import { SHIPPING_ETA } from "@/lib/site-config"
 
 /**
- * Banda de envio gratis, a sangre completa.
+ * Banda de compra, a sangre completa.
  *
- * El umbral NO se escribe aca: viene de FREE_SHIPPING_THRESHOLD en lib/site-config.ts,
- * que es la unica fuente. Antes este mensaje vivia como una tarjeta dentro de la
- * seccion de productos y repetia el monto a mano.
- *
- * El tono es de beneficio, no de letra chica: una sola idea, el monto grande, y el
- * plazo de despacho como apoyo.
+ * Antes promocionaba envio gratis sobre un monto; como no habra envio gratis, la
+ * banda ahora invita a comprar y deja el plazo de despacho como apoyo.
+ * (Se mantiene el nombre del componente para no tocar los imports.)
  */
 export function FreeShippingCta() {
   const ref = useRef(null)
@@ -25,7 +22,7 @@ export function FreeShippingCta() {
   return (
     <section
       ref={ref}
-      aria-labelledby="envio-gratis-titulo"
+      aria-labelledby="banda-compra-titulo"
       className="relative bg-accent text-accent-foreground overflow-hidden"
     >
       {/* Halo suave para que la banda no se lea como un bloque plano */}
@@ -43,17 +40,17 @@ export function FreeShippingCta() {
         >
           <div className="flex items-start gap-5">
             <span className="hidden sm:flex items-center justify-center w-12 h-12 shrink-0 rounded-2xl bg-accent-foreground/10">
-              <Truck className="w-5 h-5" strokeWidth={1.5} />
+              <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
             </span>
             <div>
               <h2
-                id="envio-gratis-titulo"
+                id="banda-compra-titulo"
                 className="text-section font-semibold tracking-[-0.035em] text-balance"
               >
-                Envío gratis sobre {formatCLP(FREE_SHIPPING_THRESHOLD)}
+                Equípate y sal a jugar
               </h2>
               <p className="mt-2 text-body text-accent-foreground/70 max-w-md">
-                A todo Chile, en {SHIPPING_ETA}. Sin códigos ni condiciones raras.
+                Sets, pelotas y accesorios listos para tu próximo partido. Despacho a todo Chile en {SHIPPING_ETA}.
               </p>
             </div>
           </div>
@@ -63,7 +60,7 @@ export function FreeShippingCta() {
             className="group shrink-0 bg-accent-foreground text-accent hover:bg-accent-foreground/90"
           >
             <Link href="/productos">
-              Ver la tienda
+              Comprar ahora
               <ArrowRight
                 className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300"
                 strokeWidth={1.5}

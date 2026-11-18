@@ -296,7 +296,7 @@ export function LoadingScreen() {
                 transition={{ duration: 0.7, delay: 0.7 }}
                 className="text-[9px] md:text-micro tracking-[0.35em] uppercase text-white/60 font-light select-none"
               >
-                Conexion &middot; Comunidad &middot; Movimiento
+                Deporte &middot; Entretención &middot; Comunidad &middot; Torneos
               </motion.p>
             </div>
 

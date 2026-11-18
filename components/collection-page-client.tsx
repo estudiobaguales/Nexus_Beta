@@ -34,7 +34,7 @@ export function CollectionPageClient({
           { label: "Tienda", href: "/productos" },
           { label: collection.title, href: `/productos/categoria/${collection.handle}` },
         ]}
-        eyebrow="Categoria"
+        eyebrow="Categoría"
         title={collection.title}
         lede={collection.description || undefined}
       />
@@ -62,7 +62,7 @@ export function CollectionPageClient({
         {sorted.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
             <p className="text-body text-muted-foreground">
-              Todavia no hay productos en esta categoria.
+              Todavía no hay productos en esta categoría.
             </p>
           </div>
         )}

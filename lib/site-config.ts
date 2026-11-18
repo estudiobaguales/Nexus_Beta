@@ -19,11 +19,12 @@ export const ORG_LOGO = "/apple-icon.png"
 
 /**
  * Perfiles oficiales, para `sameAs` del JSON-LD de Organization.
- * TODO: completar con las URLs reales. Mientras esten vacias se omite el campo,
- * que es preferible a declarar perfiles inexistentes. Los enlaces del footer
- * (components/footer.tsx) siguen apuntando a "#" y deben actualizarse a la par.
+ * Instagram (@nexussportscl) lo confirmo el cliente. TODO: sumar TikTok y YouTube
+ * cuando esten las URLs; en el footer (components/footer.tsx) siguen sin link.
  */
-export const SOCIAL_LINKS: string[] = []
+export const INSTAGRAM_URL = "https://www.instagram.com/nexussportscl/"
+
+export const SOCIAL_LINKS: string[] = [INSTAGRAM_URL]
 
 /**
  * Umbral de envio gratis, en pesos chilenos.
@@ -34,8 +35,16 @@ export const SOCIAL_LINKS: string[] = []
  */
 export const FREE_SHIPPING_THRESHOLD = 50000
 
-/** Plazo de despacho declarado junto al envio gratis. */
-export const SHIPPING_ETA = "3 a 5 dias habiles"
+/** Plazo de despacho. */
+export const SHIPPING_ETA = "3 a 5 días hábiles"
+
+/**
+ * Nexuniversity (cursos) no se habilita en el lanzamiento.
+ * Con `false`: la ruta /nexuniversity responde 404 y sale del sitemap, y se ocultan
+ * los links del menu, el footer, el slide de cursos del hero y los botones que
+ * apuntan a ella. Para habilitarla basta con pasar esto a `true`.
+ */
+export const NEXUNIVERSITY_ENABLED = false
 
 export function formatCLP(amount: number): string {
   return `$${amount.toLocaleString("es-CL")}`

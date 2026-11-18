@@ -11,17 +11,17 @@ import { Button } from "@/components/ui/button"
 const offers = [
   {
     icon: Building2,
-    title: "Ventas corporativas",
+    title: "Compras al por mayor",
     text: "Equipamiento al por mayor para clubes, municipios y empresas, con precios por volumen.",
   },
   {
     icon: Trophy,
-    title: "Torneos de empresa",
+    title: "Eventos y activaciones",
     text: "Organizamos la jornada completa: formato, arbitraje, equipamiento y producción.",
   },
   {
     icon: GraduationCap,
-    title: "Capacitaciones",
+    title: "Cursos corporativos",
     text: "Talleres y clínicas para escuelas y colegios, dictadas por instructores certificados.",
   },
 ]
@@ -48,8 +48,8 @@ export function CorporateCta() {
             También jugamos <span className="text-background/45">en tu institución.</span>
           </h2>
           <p className="mt-5 text-body text-background/55 max-w-md">
-            Trabajamos con empresas, municipios, escuelas y colegios: desde una compra por volumen
-            hasta un torneo llave en mano.
+            Trabajamos con colegios, universidades, municipios y empresas: una compra por volumen,
+            talleres o un torneo.
           </p>
           <Button asChild variant="accent" className="group mt-8">
             <Link href="/corporativo">

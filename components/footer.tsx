@@ -3,41 +3,61 @@
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
 import { useRef } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Instagram } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
+import { NEXUNIVERSITY_ENABLED, INSTAGRAM_URL } from "@/lib/site-config"
 
+// "Blog" vive solo en Comunidad: antes se repetia tambien en Deporte.
 const footerLinks = {
-  Deportes: [
-    { label: "Spikeball", href: "/spikeball" },
+  Deporte: [
+    { label: "Spikeball / Roundnet", href: "/spikeball" },
     { label: "Tienda", href: "/productos" },
-    { label: "Blog", href: "/blog" },
   ],
   Comunidad: [
-    { label: "Nexuniversity", href: "/nexuniversity" },
+    ...(NEXUNIVERSITY_ENABLED ? [{ label: "Cursos", href: "/nexuniversity" }] : []),
     { label: "Blog", href: "/blog" },
-    { label: "Rankings", href: "#" },
   ],
   Empresa: [
     { label: "Corporativo", href: "/corporativo" },
     { label: "Contacto", href: "/contacto" },
-    { label: "Prensa", href: "#" },
     { label: "Trabaja con nosotros", href: "#" },
   ],
   Legal: [
     { label: "Privacidad", href: "#" },
-    { label: "Terminos", href: "#" },
-    { label: "Envios", href: "#" },
+    { label: "Términos", href: "#" },
+    { label: "Envíos", href: "#" },
     { label: "Devoluciones", href: "#" },
   ],
 }
 
-// TODO: reemplazar por los perfiles reales y sincronizar con SOCIAL_LINKS
-// en lib/site-config.ts, que alimenta el sameAs del JSON-LD de Organization.
+function InstagramIcon() {
+  return <Instagram className="w-3.5 h-3.5" strokeWidth={1.5} aria-hidden />
+}
+
+/** YouTube y TikTok en SVG inline (lucide no trae TikTok). */
+function YouTubeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>
+      <path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42A2.5 2.5 0 0 0 2.42 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.42-4.81ZM10 15V9l5.2 3L10 15Z" />
+    </svg>
+  )
+}
+
+function TikTokIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>
+      <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.6 2.6 0 0 1-2.59-2.6 2.6 2.6 0 0 1 3.35-2.49V9.66a5.73 5.73 0 0 0-.76-.05 5.68 5.68 0 0 0-5.68 5.69A5.68 5.68 0 0 0 9.86 21a5.68 5.68 0 0 0 5.68-5.69V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.3 4.3 0 0 1-3.24-1.48Z" />
+    </svg>
+  )
+}
+
+// TODO: TikTok y YouTube sin URL todavia (se muestran sin link). Sincronizar con
+// SOCIAL_LINKS en lib/site-config.ts, que alimenta el sameAs del JSON-LD.
 const socials = [
-  { label: "Instagram", href: "#", tag: "IG" },
-  { label: "TikTok", href: "#", tag: "TK" },
-  { label: "YouTube", href: "#", tag: "YT" },
+  { label: "Instagram", href: INSTAGRAM_URL, Icon: InstagramIcon },
+  { label: "TikTok", href: "#", Icon: TikTokIcon },
+  { label: "YouTube", href: "#", Icon: YouTubeIcon },
 ]
 
 /** Los "#" son placeholders todavia sin destino: no deben navegar ni pasar link equity. */
@@ -82,7 +102,7 @@ export function Footer({ showCta = true }: { showCta?: boolean }) {
             {/* h2, no h3: el footer esta en todas las paginas y varias (/productos,
                 /blog/[slug]) no tienen ningun h2, con lo que se saltaba de H1 a H3. */}
             <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-background leading-tight text-balance">
-              Listo para jugar?
+              ¿Listos para jugar?
             </h2>
             <Button asChild variant="accent" className="group shrink-0">
               <Link href="/productos">
@@ -105,18 +125,32 @@ export function Footer({ showCta = true }: { showCta?: boolean }) {
               />
             </Link>
             <p className="mt-4 text-caption text-background/35 max-w-[200px]">
-              El ecosistema de los deportes alternativos en Chile. Conexion, comunidad y evolucion.
+              El ecosistema de los deportes alternativos en Chile. Deporte, Entretención, Comunidad, Torneos.
             </p>
             <div className="flex gap-3 mt-6">
-              {socials.map((s) => (
-                <span
-                  key={s.tag}
-                  aria-label={s.label}
-                  className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-micro font-medium text-background/40"
-                >
-                  {s.tag}
-                </span>
-              ))}
+              {socials.map((s) =>
+                s.href === "#" ? (
+                  <span
+                    key={s.label}
+                    role="img"
+                    aria-label={s.label}
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-background/40"
+                  >
+                    <s.Icon />
+                  </span>
+                ) : (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-background/40 hover:text-background hover:border-background/30 transition-colors duration-300"
+                  >
+                    <s.Icon />
+                  </a>
+                ),
+              )}
             </div>
           </div>
 
@@ -149,10 +183,10 @@ export function Footer({ showCta = true }: { showCta?: boolean }) {
         {/* Bottom bar */}
         <div className="mt-20 pt-6 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-eyebrow text-background/25">
-            2026 Nexus Chile. Todos los derechos reservados.
+            © 2026 Nexus Chile. Todos los derechos reservados.
           </p>
           <p className="text-eyebrow text-background/25">
-            Disenado y desarrollado en Chile.
+            Diseñado y desarrollado en Chile.
           </p>
         </div>
       </Container>

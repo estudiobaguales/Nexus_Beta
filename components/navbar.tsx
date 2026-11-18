@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { ShoppingBag, Search, Menu, X, ArrowRight } from "lucide-react"
 import { useCart } from "@/components/cart/cart-context"
 import { CartDrawer } from "@/components/cart/cart-drawer"
+import { NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
 
 type NavLink = {
   href: string
@@ -15,14 +16,14 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { href: "/", label: "Inicio" },
   { href: "/productos", label: "Tienda" },
-  { href: "/nexuniversity", label: "Nexuniversity" },
+  { href: "/spikeball", label: "Spikeball" },
+  ...(NEXUNIVERSITY_ENABLED ? [{ href: "/nexuniversity", label: "Cursos" }] : []),
   { href: "/corporativo", label: "Corporativo" },
   { href: "/blog", label: "Blog" },
 ]
 
 const highlightLinks: NavLink[] = [
   { href: "/contacto", label: "Contacto" },
-  { href: "/spikeball", label: "SpikeBall" },
 ]
 
 const highlightPillClass =

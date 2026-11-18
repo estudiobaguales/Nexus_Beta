@@ -12,7 +12,8 @@ const crumbs: Crumb[] = [
 
 export const metadata: Metadata = buildMetadata({
   title: "Tienda",
-  description: "Equipamiento para Pickleball, Cornhole, Spikeball, KanJam y Bocce. Sets completos y accesorios.",
+  description:
+    "Equipamiento para Spikeball / Roundnet, Pickleball y Ultimate Frisbee. Sets completos, accesorios, ropa y repuestos.",
   path: "/productos",
 })
 

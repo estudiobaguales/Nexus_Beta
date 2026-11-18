@@ -21,9 +21,9 @@ const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800"],
 })
 
-const title = "NEXUS Sports | Conexion. Comunidad. Movimiento."
+const title = "NEXUS Sports | Deporte · Entretención · Comunidad · Torneos"
 const description =
-  "NEXUS Sports es el ecosistema de los deportes alternativos en Chile. Equipamiento profesional de roundnet, cursos, torneos y comunidad."
+  "El ecosistema de los deportes alternativos en Chile. Deporte, Entretención, Comunidad, Torneos."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/json-ld"
 import { buildMetadata, breadcrumbJsonLd, type Crumb } from "@/lib/seo"
 import { absoluteUrl, SITE_NAME, ORG_LOGO } from "@/lib/site-config"
 
-const TITLE = "Spikeball (Roundnet): que es, reglas y como se juega"
+const TITLE = "Spikeball (Roundnet): qué es, reglas y cómo se juega"
 const HERO_IMAGE = "/images/spikeball-hero.png"
 
 // Fechas de la guia pillar. Actualizar PUBLISHED solo si se reescribe el articulo;
@@ -20,7 +20,7 @@ const crumbs: Crumb[] = [
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
   description:
-    "Guia completa de Spikeball / Roundnet: su historia, reglas oficiales, como se juega 2 contra 2 y todo lo que necesitas para empezar en Chile.",
+    "Guía completa de Spikeball / Roundnet: su historia, reglas oficiales, cómo se juega 2 contra 2 y todo lo que necesitas para empezar en Chile.",
   path: "/spikeball",
   type: "article",
   image: HERO_IMAGE,
@@ -42,7 +42,7 @@ export default function SpikeballPage() {
     "@type": "Article",
     headline: TITLE,
     description:
-      "Guia completa de Spikeball / Roundnet: historia, reglas oficiales y como empezar a jugar en Chile.",
+      "Guía completa de Spikeball / Roundnet: historia, reglas oficiales y cómo empezar a jugar en Chile.",
     about: "Spikeball / Roundnet",
     image: [absoluteUrl(HERO_IMAGE)],
     datePublished: PUBLISHED,
