@@ -4,8 +4,27 @@
     {
       "name": "nexus-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000
+    },
+    {
+      "name": "nexus-hydrogen",
+      "runtimeExecutable": "/usr/local/bin/npm",
+      "runtimeArgs": [
+        "--prefix",
+        "hydrogen",
+        "run",
+        "dev",
+        "--",
+        "--path",
+        "/Users/geronimomathesonmujica/Documents/GitHubCodes/Nexus_Beta/hydrogen",
+        "--port",
+        "3001"
+      ],
+      "port": 3001
     }
   ]
 }
