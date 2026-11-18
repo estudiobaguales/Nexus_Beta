@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
 import { useRef } from "react"
-import { ArrowUpRight, Instagram, Youtube } from "lucide-react"
+import { ArrowUpRight, Instagram } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { NEXUNIVERSITY_ENABLED, INSTAGRAM_URL } from "@/lib/site-config"
@@ -35,11 +35,15 @@ function InstagramIcon() {
   return <Instagram className="w-3.5 h-3.5" strokeWidth={1.5} aria-hidden />
 }
 
+/** YouTube y TikTok en SVG inline (lucide no trae TikTok). */
 function YouTubeIcon() {
-  return <Youtube className="w-3.5 h-3.5" strokeWidth={1.5} aria-hidden />
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>
+      <path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42A2.5 2.5 0 0 0 2.42 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.42-4.81ZM10 15V9l5.2 3L10 15Z" />
+    </svg>
+  )
 }
 
-/** TikTok no existe en lucide: SVG inline. */
 function TikTokIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>

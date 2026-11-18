@@ -34,7 +34,7 @@ function ProductsContent({ products }: { products: Product[] }) {
   // generan un chip "Otro" (solo aparecen en "Todos"). Los tipos definidos por el
   // cliente salen primero y en este orden; cualquier otro tipo va al final.
   const categories = useMemo(() => {
-    const types = Array.from(new Set(displayProducts.map((p) => p.productType).filter(Boolean)))
+    const types = Array.from(new Set(displayProducts.map((p) => p.productType).filter((t): t is string => Boolean(t))))
     const rank = (t: string) => {
       const i = FILTER_ORDER.indexOf(t)
       return i === -1 ? FILTER_ORDER.length : i
