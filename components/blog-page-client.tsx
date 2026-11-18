@@ -12,7 +12,7 @@ import { FilterPill } from "@/components/ui/filter-pill"
 import { PageHero } from "@/components/ui/page-hero"
 import { blogPosts, type BlogPost } from "@/lib/blog-data"
 
-const categories = ["Todos", "Guias", "Torneos", "Comunidad", "Producto", "Tips"]
+const categories = ["Todos", "Guías", "Torneos", "Comunidad", "Producto", "Tips"]
 
 const posts = blogPosts
 
@@ -61,7 +61,7 @@ function FeaturedPost({ post }: { post: BlogPost }) {
               {post.readTime}
             </div>
             <span className="group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-1.5 text-caption text-foreground font-medium">
-              Leer articulo <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Leer artículo <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
             </span>
           </div>
         </div>
@@ -135,7 +135,7 @@ function BlogContent() {
           { label: "Blog", href: "/blog" },
         ]}
         eyebrow="Blog"
-        title="Noticias y guias."
+        title="Noticias y guías."
         lede="Tips, torneos, lanzamientos y todo lo que pasa en la comunidad Nexus."
       />
 

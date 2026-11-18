@@ -28,7 +28,7 @@ export async function generateMetadata({
   return buildMetadata({
     title: `${collection.title} | Tienda`,
     description:
-      collection.description?.slice(0, 160) || `Productos de la categoria ${collection.title} en Nexus.`,
+      collection.description?.slice(0, 160) || `Productos de la categoría ${collection.title} en Nexus.`,
     path: `/productos/categoria/${collection.handle}`,
     ...(collection.image
       ? { image: collection.image.url, imageAlt: collection.image.altText || collection.title }

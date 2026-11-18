@@ -10,7 +10,7 @@ const crumbs: Crumb[] = [
 
 export const metadata: Metadata = buildMetadata({
   title: "Blog",
-  description: "Noticias, guias, consejos y todo lo que necesitas saber sobre roundnet en Chile.",
+  description: "Noticias, guías, consejos y todo lo que necesitas saber sobre roundnet en Chile.",
   path: "/blog",
 })
 
