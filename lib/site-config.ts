@@ -19,11 +19,12 @@ export const ORG_LOGO = "/apple-icon.png"
 
 /**
  * Perfiles oficiales, para `sameAs` del JSON-LD de Organization.
- * TODO: completar con las URLs reales. Mientras esten vacias se omite el campo,
- * que es preferible a declarar perfiles inexistentes. Los enlaces del footer
- * (components/footer.tsx) siguen apuntando a "#" y deben actualizarse a la par.
+ * Instagram (@nexussportscl) lo confirmo el cliente. TODO: sumar TikTok y YouTube
+ * cuando esten las URLs; en el footer (components/footer.tsx) siguen sin link.
  */
-export const SOCIAL_LINKS: string[] = []
+export const INSTAGRAM_URL = "https://www.instagram.com/nexussportscl/"
+
+export const SOCIAL_LINKS: string[] = [INSTAGRAM_URL]
 
 /**
  * Umbral de envio gratis, en pesos chilenos.

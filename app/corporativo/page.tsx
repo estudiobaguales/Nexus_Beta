@@ -11,7 +11,7 @@ const crumbs: Crumb[] = [
 export const metadata: Metadata = buildMetadata({
   title: "Corporativo",
   description:
-    "Compras al por mayor, cursos corporativos y organizacion de eventos deportivos de roundnet para instituciones y empresas en Chile.",
+    "Compras al por mayor, cursos corporativos y organización de eventos deportivos de roundnet para instituciones y empresas en Chile.",
   path: "/corporativo",
   keywords: ["nexus sports", "compras al por mayor", "cursos corporativos", "eventos empresas", "roundnet empresas"],
 })

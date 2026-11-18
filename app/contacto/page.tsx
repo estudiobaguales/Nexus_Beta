@@ -10,7 +10,7 @@ const crumbs: Crumb[] = [
 
 export const metadata: Metadata = buildMetadata({
   title: "Contacto",
-  description: "Escribinos tus dudas sobre productos, pedidos o la comunidad Nexus. Te respondemos a la brevedad.",
+  description: "Escríbenos tus dudas sobre productos, pedidos o la comunidad Nexus. Te respondemos a la brevedad.",
   path: "/contacto",
   keywords: ["nexus sports", "contacto", "soporte nexus"],
 })

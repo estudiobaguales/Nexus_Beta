@@ -3,10 +3,10 @@
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
 import { useRef } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Instagram, Youtube } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
-import { NEXUNIVERSITY_ENABLED } from "@/lib/site-config"
+import { NEXUNIVERSITY_ENABLED, INSTAGRAM_URL } from "@/lib/site-config"
 
 // "Blog" vive solo en Comunidad: antes se repetia tambien en Deporte.
 const footerLinks = {
@@ -31,17 +31,15 @@ const footerLinks = {
   ],
 }
 
-/** Iconos de marca en SVG inline: lucide ya no trae logos de redes. */
 function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-3.5 h-3.5" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
-    </svg>
-  )
+  return <Instagram className="w-3.5 h-3.5" strokeWidth={1.5} aria-hidden />
 }
 
+function YouTubeIcon() {
+  return <Youtube className="w-3.5 h-3.5" strokeWidth={1.5} aria-hidden />
+}
+
+/** TikTok no existe en lucide: SVG inline. */
 function TikTokIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>
@@ -50,18 +48,10 @@ function TikTokIcon() {
   )
 }
 
-function YouTubeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden>
-      <path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42A2.5 2.5 0 0 0 2.42 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.42-4.81ZM10 15V9l5.2 3L10 15Z" />
-    </svg>
-  )
-}
-
-// TODO: reemplazar por los perfiles reales y sincronizar con SOCIAL_LINKS
-// en lib/site-config.ts, que alimenta el sameAs del JSON-LD de Organization.
+// TODO: TikTok y YouTube sin URL todavia (se muestran sin link). Sincronizar con
+// SOCIAL_LINKS en lib/site-config.ts, que alimenta el sameAs del JSON-LD.
 const socials = [
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
+  { label: "Instagram", href: INSTAGRAM_URL, Icon: InstagramIcon },
   { label: "TikTok", href: "#", Icon: TikTokIcon },
   { label: "YouTube", href: "#", Icon: YouTubeIcon },
 ]
@@ -134,16 +124,29 @@ export function Footer({ showCta = true }: { showCta?: boolean }) {
               El ecosistema de los deportes alternativos en Chile. Deporte, Entretención, Comunidad, Torneos.
             </p>
             <div className="flex gap-3 mt-6">
-              {socials.map((s) => (
-                <span
-                  key={s.label}
-                  role="img"
-                  aria-label={s.label}
-                  className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-background/40"
-                >
-                  <s.Icon />
-                </span>
-              ))}
+              {socials.map((s) =>
+                s.href === "#" ? (
+                  <span
+                    key={s.label}
+                    role="img"
+                    aria-label={s.label}
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-background/40"
+                  >
+                    <s.Icon />
+                  </span>
+                ) : (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-background/10 text-background/40 hover:text-background hover:border-background/30 transition-colors duration-300"
+                  >
+                    <s.Icon />
+                  </a>
+                ),
+              )}
             </div>
           </div>
 

@@ -18,10 +18,10 @@ const events = [
   },
   {
     id: 2,
-    title: "Beach Cup Vina",
+    title: "Beach Cup Viña",
     date: "02 Ago",
     year: "2026",
-    location: "Playa Renaca",
+    location: "Playa Reñaca",
     participants: "32 equipos",
     category: "Regional",
     featured: false,
@@ -31,7 +31,7 @@ const events = [
     title: "Liga Universitaria",
     date: "20 Sep",
     year: "2026",
-    location: "Campus San Joaquin, PUC",
+    location: "Campus San Joaquín, PUC",
     participants: "24 equipos",
     category: "Liga",
     featured: false,
@@ -172,7 +172,7 @@ export function EventsSection() {
                   </p>
                   <div className="flex items-center gap-2 mt-4">
                     <span className="text-eyebrow text-background/50 group-hover:text-accent/80 transition-colors duration-300 font-medium">
-                      Mas info
+                      Más info
                     </span>
                     <ArrowRight className="w-3 h-3 text-background/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" strokeWidth={1.5} />
                   </div>
